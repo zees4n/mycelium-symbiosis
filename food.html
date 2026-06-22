@@ -65,31 +65,21 @@
       <form class="hydration-form" id="hydration-form">
         <label>
           <span>Consumed water (ml)</span>
-          <input id="water-input" type="number" min="1" step="50" inputmode="numeric" required>
+          <input id="water-input" type="number" min="1" inputmode="numeric" required>
         </label>
         <button class="button primary" type="submit">Add water</button>
         <button class="button secondary" type="button" id="reset-water">Reset</button>
       </form>
     </section>
 
-    <section class="panel future-panel" aria-labelledby="gender-title">
+    <!-- Day selector for viewing different meal plans -->
+    <section class="panel day-selector-panel" aria-labelledby="day-selector-title">
       <div class="section-heading">
-        <p class="eyebrow">Expansion slot</p>
-        <h2 id="gender-title">Gender-adjusted calorie logic</h2>
+        <p class="eyebrow">Weekly schedule</p>
+        <h2 id="day-selector-title">View other days</h2>
       </div>
-      <div class="future-slot" id="gender-calorie-slot">
-        <span>Adjustment status</span>
-        <strong>No adjustment active</strong>
-      </div>
-    </section>
 
-    <section class="panel future-panel" aria-labelledby="visual-title">
-      <div class="section-heading">
-        <p class="eyebrow">Food intelligence</p>
-        <h2 id="visual-title">3D food visuals and info cards</h2>
-      </div>
-      <div class="visual-reserve" data-future-module="food-3d-visuals"></div>
-      <div class="info-card-reserve" data-future-module="food-detail-cards"></div>
+      <div class="day-toggle-buttons" id="day-toggle-buttons"></div>
     </section>
 
     <!-- Replaced weekly schedule with a single Day Plan view -->
@@ -97,7 +87,7 @@
       <div class="dayplan-header">
         <div>
           <p class="eyebrow">Daily nutrition</p>
-          <h2 id="dayplan-title">Today’s plan</h2>
+          <h2 id="dayplan-title">Today's plan</h2>
           <p id="day-date" class="microcopy"></p>
         </div>
         <div class="day-summary" aria-hidden="false">
@@ -112,6 +102,14 @@
 
       <div id="day-meals" class="day-meals"></div>
     </section>
+
+    <!-- Modal/drawer for viewing other day details -->
+    <div id="day-detail-modal" class="day-detail-modal" hidden>
+      <div class="modal-content">
+        <button class="modal-close" id="modal-close">&times;</button>
+        <div id="modal-day-content"></div>
+      </div>
+    </div>
   </main>
 </body>
 </html>
