@@ -82,7 +82,7 @@
       <div class="day-toggle-buttons" id="day-toggle-buttons"></div>
     </section>
 
-    <!-- Replaced weekly schedule with a single Day Plan view -->
+    <!-- Personalized Daily Plan Section -->
     <section class="schedule-section dayplan-section" id="day-plan" aria-labelledby="dayplan-title">
       <div class="dayplan-header">
         <div>
@@ -101,6 +101,14 @@
       </div>
 
       <div id="day-meals" class="day-meals"></div>
+    </section>
+
+    <!-- Weekly meal grid (shown when no personalized plan) -->
+    <section class="schedule-section" id="weekly-schedule" aria-labelledby="weekly-title">
+      <div class="schedule-heading">
+        <h2 id="active-plan-title" class="active-plan-title">Standard Meal Plan</h2>
+      </div>
+      <div id="weekly-grid" class="weekly-grid"></div>
     </section>
 
     <!-- Modal/drawer for viewing other day details -->
