@@ -1,21 +1,21 @@
 :root {
   color-scheme: dark;
-  --bg: #05090d;
-  --bg-soft: #0a1118;
-  --panel: rgba(13, 23, 31, 0.78);
-  --panel-strong: rgba(17, 29, 39, 0.92);
-  --line: rgba(169, 213, 232, 0.18);
-  --line-bright: rgba(145, 232, 255, 0.34);
-  --text: #ecf7fb;
-  --muted: #9fb3bd;
-  --subtle: #6f858f;
-  --cyan: #86e7ff;
-  --cyan-strong: #28c8ef;
-  --green: #9af0be;
-  --amber: #f6c06a;
-  --danger: #ff8a8a;
-  --shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
-  --radius: 8px;
+  --bg: #0a0e27;
+  --bg-soft: #111633;
+  --panel: rgba(17, 22, 51, 0.45);
+  --panel-strong: rgba(20, 27, 60, 0.65);
+  --line: rgba(100, 200, 255, 0.15);
+  --line-bright: rgba(100, 200, 255, 0.35);
+  --text: #f0f4ff;
+  --muted: #a8b8d8;
+  --subtle: #7a8aaa;
+  --cyan: #00d4ff;
+  --cyan-strong: #0099ff;
+  --green: #00ff88;
+  --amber: #ffa500;
+  --danger: #ff3366;
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+  --radius: 12px;
   --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
@@ -33,9 +33,11 @@ body {
   font-family: var(--font);
   color: var(--text);
   background:
-    radial-gradient(circle at 18% 12%, rgba(40, 200, 239, 0.16), transparent 30%),
-    radial-gradient(circle at 80% 5%, rgba(154, 240, 190, 0.08), transparent 26%),
-    linear-gradient(145deg, #030609 0%, #081018 48%, #05080d 100%);
+    radial-gradient(circle at 20% 15%, rgba(0, 212, 255, 0.15), transparent 35%),
+    radial-gradient(circle at 85% 10%, rgba(0, 255, 136, 0.08), transparent 30%),
+    radial-gradient(ellipse 800px 600px at 50% 80%, rgba(255, 165, 0, 0.05), transparent 50%),
+    linear-gradient(135deg, #0a0e27 0%, #1a1f4a 50%, #0d1a35 100%);
+  background-attachment: fixed;
 }
 
 body::before {
@@ -44,10 +46,11 @@ body::before {
   z-index: -1;
   content: "";
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent 82%);
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent 80%);
+  pointer-events: none;
 }
 
 a {
@@ -67,10 +70,11 @@ select {
   top: -4rem;
   z-index: 10;
   padding: 0.7rem 1rem;
-  color: #021017;
-  background: var(--cyan);
+  color: #0a0e27;
+  background: linear-gradient(135deg, var(--cyan), var(--green));
   border-radius: var(--radius);
   transition: top 180ms ease;
+  font-weight: 700;
 }
 
 .skip-link:focus {
@@ -81,9 +85,11 @@ select {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: min(1180px, calc(100% - 32px));
+  width: min(1200px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 22px 0;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(10px);
 }
 
 .brand-mark,
@@ -96,76 +102,83 @@ select {
 .brand-mark {
   color: var(--text);
   font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-weight: 800;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .brand-symbol {
-  width: 14px;
-  height: 14px;
-  border: 1px solid var(--cyan);
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--cyan);
   border-radius: 50%;
-  box-shadow: 0 0 20px rgba(134, 231, 255, 0.75), inset 0 0 12px rgba(134, 231, 255, 0.45);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.6), inset 0 0 10px rgba(0, 212, 255, 0.3);
+  background: rgba(0, 212, 255, 0.1);
 }
 
 .top-nav a {
-  min-height: 38px;
-  padding: 0.6rem 0.9rem;
+  min-height: 40px;
+  padding: 0.65rem 1.1rem;
   color: var(--muted);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+  transition: all 200ms ease;
+  font-weight: 600;
 }
 
 .top-nav a:hover,
 .top-nav a:focus-visible {
   color: var(--text);
-  background: rgba(134, 231, 255, 0.08);
-  border-color: var(--line-bright);
+  background: rgba(0, 212, 255, 0.1);
+  border-color: var(--cyan);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
 }
 
 .landing-shell,
 .dashboard-shell {
-  width: min(1180px, calc(100% - 32px));
+  width: min(1200px, calc(100% - 32px));
   margin: 0 auto;
 }
 
 .landing-shell {
-  padding: 34px 0 64px;
+  padding: 40px 0 80px;
 }
 
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.6fr);
-  gap: 28px;
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.5fr);
+  gap: 40px;
   align-items: end;
-  min-height: 42vh;
-  padding: clamp(2rem, 6vw, 5rem) 0 2rem;
+  min-height: 50vh;
+  padding: clamp(2rem, 8vw, 6rem) 0 2rem;
 }
 
 .hero-copy h1 {
-  max-width: 820px;
+  max-width: 900px;
   margin: 0;
-  font-size: clamp(2.8rem, 8vw, 6.7rem);
-  line-height: 0.95;
-  letter-spacing: 0;
+  font-size: clamp(3rem, 10vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--cyan), var(--green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .hero-lede {
-  max-width: 680px;
-  margin: 1.3rem 0 0;
+  max-width: 700px;
+  margin: 1.5rem 0 0;
   color: var(--muted);
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  line-height: 1.7;
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  line-height: 1.8;
 }
 
 .eyebrow {
-  margin: 0 0 0.7rem;
+  margin: 0 0 0.8rem;
   color: var(--cyan);
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
@@ -175,23 +188,31 @@ select {
   border-radius: var(--radius);
   background: var(--panel);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(20px);
 }
 
 .mission-status {
   display: flex;
-  gap: 1rem;
+  gap: 1.2rem;
   align-items: center;
-  padding: 1.2rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  background: rgba(0, 255, 136, 0.05);
 }
 
 .status-light {
   flex: 0 0 auto;
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: var(--green);
-  box-shadow: 0 0 22px rgba(154, 240, 190, 0.72);
+  box-shadow: 0 0 24px rgba(0, 255, 136, 0.8);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
 }
 
 .status-label,
@@ -204,57 +225,59 @@ select {
 .microcopy {
   color: var(--subtle);
   font-size: 0.82rem;
+  font-weight: 600;
 }
 
 .status-value {
-  margin-top: 0.2rem;
+  margin-top: 0.3rem;
   color: var(--text);
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .panel {
-  padding: clamp(1.2rem, 3vw, 2rem);
-  margin-top: 2rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  margin-top: 2.5rem;
 }
 
 .section-heading h1,
 .section-heading h2,
 .schedule-heading h2 {
   margin: 0;
-  font-size: clamp(1.45rem, 3vw, 2rem);
-  letter-spacing: 0;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  letter-spacing: -0.01em;
+  font-weight: 800;
 }
 
 .profile-form {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
 }
 
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 .form-section {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   border: none;
   padding: 0;
 }
 
 .form-section legend {
-  font-size: 0.9rem;
-  font-weight: 700;
+  font-size: 0.85rem;
+  font-weight: 800;
   color: var(--cyan);
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
 }
 
 label {
   display: grid;
-  gap: 0.45rem;
+  gap: 0.5rem;
   color: var(--muted);
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   font-weight: 700;
 }
 
@@ -285,15 +308,16 @@ label.checkbox-label input {
 
 input,
 select {
-  min-height: 46px;
+  min-height: 48px;
   width: 100%;
   color: var(--text);
-  background: rgba(255, 255, 255, 0.055);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   outline: none;
-  padding: 0.75rem 0.85rem;
-  transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  padding: 0.85rem 1rem;
+  transition: all 200ms ease;
+  font-weight: 500;
 }
 
 select {
@@ -301,18 +325,19 @@ select {
 }
 
 option {
-  color: #061017;
+  background: #1a1f4a;
+  color: var(--text);
 }
 
 input:focus,
 select:focus {
-  background: rgba(255, 255, 255, 0.075);
+  background: rgba(255, 255, 255, 0.08);
   border-color: var(--cyan);
-  box-shadow: 0 0 0 3px rgba(134, 231, 255, 0.12);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15);
 }
 
 ::placeholder {
-  color: rgba(159, 179, 189, 0.6);
+  color: rgba(168, 184, 216, 0.5);
 }
 
 .form-actions,
@@ -320,14 +345,14 @@ select:focus {
 .results-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8rem;
+  gap: 1rem;
   align-items: end;
-  margin-top: 1.3rem;
+  margin-top: 1.5rem;
 }
 
 .results-actions {
-  margin-top: 2rem;
-  padding-top: 2rem;
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
   border-top: 1px solid var(--line);
 }
 
@@ -335,291 +360,341 @@ select:focus {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 46px;
-  padding: 0.78rem 1rem;
+  min-height: 48px;
+  padding: 0.9rem 1.4rem;
   color: var(--text);
   border: 1px solid transparent;
   border-radius: var(--radius);
   cursor: pointer;
-  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  transition: all 200ms ease;
+  font-weight: 800;
+  font-size: 0.95rem;
 }
 
 .button:hover,
 .button:focus-visible {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .button.primary {
-  color: #021017;
+  color: #0a0e27;
   background: linear-gradient(135deg, var(--cyan), var(--green));
-  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+}
+
+.button.primary:hover {
+  box-shadow: 0 12px 32px rgba(0, 212, 255, 0.4);
 }
 
 .button.secondary {
   color: var(--text);
-  background: rgba(255, 255, 255, 0.055);
+  background: rgba(255, 255, 255, 0.06);
   border-color: var(--line);
 }
 
 .button.secondary:hover,
 .button.secondary:focus-visible {
-  border-color: var(--line-bright);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--cyan);
 }
 
 .saved-state {
-  margin: 1rem 0 0;
+  margin: 1.2rem 0 0;
   color: var(--green);
-  font-weight: 700;
+  font-weight: 800;
+  font-size: 0.95rem;
 }
 
 /* Calculator Styles */
 .calculator-panel {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
 }
 
 .results-panel {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
 }
 
 .astronaut-summary {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 1rem;
 }
 
 .summary-item {
-  padding: 1rem;
+  padding: 1.2rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.04);
+  transition: all 200ms ease;
+}
+
+.summary-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--cyan);
 }
 
 .summary-item span {
   display: block;
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-size: 0.7rem;
+  font-weight: 800;
   color: var(--subtle);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 0.4rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
 }
 
 .summary-item strong {
   display: block;
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: var(--text);
+  font-weight: 800;
 }
 
 .requirements-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.2rem;
-  margin: 2rem 0;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.4rem;
+  margin: 2.5rem 0;
 }
 
 .requirement-card {
-  padding: 1.5rem;
+  padding: 2rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--panel);
   text-align: center;
-  transition: border-color 180ms ease, background 180ms ease;
+  transition: all 200ms ease;
+  cursor: pointer;
 }
 
 .requirement-card:hover {
   border-color: var(--line-bright);
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--panel-strong);
+  transform: translateY(-2px);
 }
 
 .requirement-card.energy-card {
+  border-color: rgba(255, 165, 0, 0.3);
+  background: rgba(255, 165, 0, 0.05);
+}
+
+.requirement-card.energy-card:hover {
   border-color: var(--amber);
-  background: rgba(246, 192, 106, 0.08);
+  background: rgba(255, 165, 0, 0.1);
 }
 
 .requirement-card.water-card {
+  border-color: rgba(0, 212, 255, 0.3);
+  background: rgba(0, 212, 255, 0.05);
+}
+
+.requirement-card.water-card:hover {
   border-color: var(--cyan);
-  background: rgba(134, 231, 255, 0.08);
+  background: rgba(0, 212, 255, 0.1);
 }
 
 .requirement-card.fiber-card {
+  border-color: rgba(0, 255, 136, 0.3);
+  background: rgba(0, 255, 136, 0.05);
+}
+
+.requirement-card.fiber-card:hover {
   border-color: var(--green);
-  background: rgba(154, 240, 190, 0.08);
+  background: rgba(0, 255, 136, 0.1);
 }
 
 .requirement-card h3 {
-  margin: 0 0 0.8rem;
-  font-size: 0.9rem;
+  margin: 0 0 1rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--cyan);
+  font-weight: 800;
 }
 
 .requirement-value {
-  font-size: 2.2rem;
-  font-weight: 800;
+  font-size: 2.5rem;
+  font-weight: 900;
   color: var(--text);
-  margin: 0.5rem 0;
+  margin: 0.8rem 0;
 }
 
 .requirement-label {
-  margin: 0.4rem 0 0;
+  margin: 0.6rem 0 0;
   font-size: 0.75rem;
   color: var(--subtle);
   text-transform: uppercase;
+  font-weight: 600;
 }
 
 .requirement-mini {
-  margin: 0.5rem 0 0;
+  margin: 0.6rem 0 0;
   font-size: 0.75rem;
   color: var(--muted);
+  font-weight: 500;
 }
 
 .calculation-note {
-  margin-top: 0.8rem;
-  padding-top: 0.8rem;
-  border-top: 1px solid rgba(169, 213, 232, 0.2);
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 212, 255, 0.15);
 }
 
 .calculation-note small {
   font-size: 0.7rem;
   color: var(--subtle);
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .macro-breakdown {
-  margin: 2rem 0;
-  padding: 1.5rem;
+  margin: 2.5rem 0;
+  padding: 2rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--panel);
 }
 
 .macro-breakdown h3 {
-  margin: 0 0 1.2rem;
-  font-size: 1.1rem;
-  font-weight: 700;
+  margin: 0 0 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text);
 }
 
 .macro-bars {
   display: grid;
-  gap: 1.2rem;
+  gap: 1.5rem;
 }
 
 .macro-bar-item {
   display: grid;
-  grid-template-columns: 80px 1fr 60px;
-  gap: 1rem;
+  grid-template-columns: 100px 1fr 70px;
+  gap: 1.2rem;
   align-items: center;
 }
 
 .bar-label {
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .bar-container {
-  height: 24px;
+  height: 28px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.05);
   overflow: hidden;
   border: 1px solid var(--line);
 }
 
 .bar-fill {
   height: 100%;
-  transition: width 400ms ease;
+  transition: width 500ms cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .protein-bar {
-  background: linear-gradient(90deg, #ff8a8a, #ff6b6b);
+  background: linear-gradient(90deg, #ff4757, #ff6b7a);
+  box-shadow: 0 0 16px rgba(255, 71, 87, 0.4);
 }
 
 .carbs-bar {
-  background: linear-gradient(90deg, #86e7ff, #28c8ef);
+  background: linear-gradient(90deg, #00d4ff, #0099ff);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.4);
 }
 
 .fat-bar {
-  background: linear-gradient(90deg, #f6c06a, #e6a944);
+  background: linear-gradient(90deg, #ffa500, #ff8c00);
+  box-shadow: 0 0 16px rgba(255, 165, 0, 0.4);
 }
 
 .bar-value {
   text-align: right;
-  font-size: 0.8rem;
-  font-weight: 700;
+  font-size: 0.85rem;
+  font-weight: 800;
   color: var(--text);
 }
 
 .micronutrient-section {
-  margin: 2rem 0;
+  margin: 2.5rem 0;
 }
 
 .micronutrient-section h3 {
-  margin: 0 0 1rem;
-  font-size: 1.1rem;
-  font-weight: 700;
+  margin: 0 0 1.2rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text);
 }
 
 .micronutrient-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 1rem;
 }
 
 .micronutrient-item {
-  padding: 1rem;
+  padding: 1.2rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.03);
+  transition: all 200ms ease;
+}
+
+.micronutrient-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--cyan);
 }
 
 .micro-label {
   display: block;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--subtle);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 0.4rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
 }
 
 .micro-value {
   display: block;
-  font-size: 1.3rem;
-  font-weight: 700;
+  font-size: 1.5rem;
+  font-weight: 900;
   color: var(--text);
 }
 
 .alert {
-  padding: 1rem 1.2rem;
-  margin: 1rem 0;
+  padding: 1.2rem 1.5rem;
+  margin: 1.2rem 0;
   border-radius: var(--radius);
-  border-left: 4px solid;
+  border-left: 5px solid;
+  backdrop-filter: blur(10px);
 }
 
 .alert-success {
-  background: rgba(154, 240, 190, 0.1);
+  background: rgba(0, 255, 136, 0.08);
   border-left-color: var(--green);
   color: var(--green);
 }
 
 .alert-warning {
-  background: rgba(246, 192, 106, 0.1);
+  background: rgba(255, 165, 0, 0.08);
   border-left-color: var(--amber);
   color: var(--amber);
 }
 
 .alert-critical {
-  background: rgba(255, 138, 138, 0.1);
+  background: rgba(255, 51, 102, 0.08);
   border-left-color: var(--danger);
   color: var(--danger);
 }
 
 .alert-info {
-  background: rgba(134, 231, 255, 0.1);
+  background: rgba(0, 212, 255, 0.08);
   border-left-color: var(--cyan);
   color: var(--cyan);
 }
@@ -627,8 +702,8 @@ select:focus {
 .dashboard-shell {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 1rem;
-  padding: 28px 0 64px;
+  gap: 1.5rem;
+  padding: 32px 0 80px;
 }
 
 .profile-card {
@@ -643,43 +718,53 @@ select:focus {
 
 .profile-summary {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.8rem;
-  margin-top: 1.2rem;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
 .profile-fact,
 .future-slot {
-  min-height: 72px;
-  padding: 0.9rem;
-  border: 1px solid rgba(169, 213, 232, 0.13);
+  min-height: 80px;
+  padding: 1rem;
+  border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.03);
+  transition: all 200ms ease;
+}
+
+.profile-fact:hover,
+.future-slot:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--cyan);
+  transform: translateY(-2px);
 }
 
 .profile-fact span,
 .future-slot span {
   display: block;
   color: var(--subtle);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
+  margin-bottom: 0.4rem;
 }
 
 .profile-fact strong,
 .future-slot strong {
   display: block;
-  margin-top: 0.35rem;
+  margin-top: 0.2rem;
   overflow-wrap: anywhere;
   font-size: 1rem;
+  font-weight: 800;
 }
 
 .mode-selector {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.55rem;
-  margin: 1.2rem 0 0;
+  gap: 0.6rem;
+  margin: 1.5rem 0 0;
   padding: 0;
   border: 0;
 }
@@ -700,42 +785,47 @@ select:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
-  padding: 0.7rem 0.55rem;
+  min-height: 48px;
+  padding: 0.8rem 0.6rem;
   color: var(--muted);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.04);
   text-align: center;
-  transition: color 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  transition: all 200ms ease;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
 }
 
 .mode-selector input:checked + span {
-  color: #031016;
-  background: var(--cyan);
+  color: #0a0e27;
+  background: linear-gradient(135deg, var(--cyan), var(--green));
   border-color: var(--cyan);
-  box-shadow: 0 0 24px rgba(134, 231, 255, 0.24);
+  box-shadow: 0 0 24px rgba(0, 212, 255, 0.35);
 }
 
 .meter-stats {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  margin: 1.1rem 0 0.75rem;
+  margin: 1.2rem 0 0.9rem;
   color: var(--muted);
+  font-size: 0.9rem;
 }
 
 .meter-stats strong {
   color: var(--text);
+  font-weight: 800;
 }
 
 .water-bar {
   position: relative;
-  height: 16px;
+  height: 20px;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .water-fill {
@@ -744,8 +834,8 @@ select:focus {
   width: 0%;
   border-radius: inherit;
   background: linear-gradient(90deg, var(--cyan-strong), var(--green));
-  box-shadow: 0 0 18px rgba(134, 231, 255, 0.32);
-  transition: width 420ms ease;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+  transition: width 500ms cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .hydration-form {
@@ -758,464 +848,460 @@ select:focus {
 
 .visual-reserve,
 .info-card-reserve {
-  min-height: 112px;
-  margin-top: 1rem;
-  border: 1px dashed rgba(145, 232, 255, 0.28);
+  min-height: 120px;
+  margin-top: 1.2rem;
+  border: 2px dashed rgba(0, 212, 255, 0.25);
   border-radius: var(--radius);
-  background: linear-gradient(135deg, rgba(134, 231, 255, 0.055), rgba(154, 240, 190, 0.035));
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.03), rgba(0, 255, 136, 0.02));
 }
 
 .info-card-reserve {
-  min-height: 72px;
+  min-height: 80px;
 }
 
 .schedule-section {
   grid-column: span 12;
-  padding-top: 1rem;
+  padding-top: 1.5rem;
 }
 
 .schedule-heading {
   display: flex;
   align-items: end;
   justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .active-plan-title {
   margin: 0;
   color: var(--amber);
-  font-weight: 800;
+  font-weight: 900;
+  font-size: 1.1rem;
 }
 
 .weekly-grid {
   display: grid;
-  grid-template-columns: repeat(7, minmax(260px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.2rem;
   overflow-x: auto;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.8rem;
 }
 
 .day-column {
-  min-width: 260px;
-  padding-top: 0.85rem;
-  border-top: 1px solid var(--line-bright);
+  min-width: 280px;
+  padding: 1.2rem;
+  border-top: 2px solid var(--line-bright);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.02);
+  transition: all 200ms ease;
+}
+
+.day-column:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--cyan);
 }
 
 .day-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.7rem;
-  margin-bottom: 0.75rem;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
 }
 
 .day-heading h3 {
   margin: 0;
-  font-size: 1.02rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text);
 }
 
 .total-pill {
-  color: #031016;
-  background: var(--amber);
+  color: #0a0e27;
+  background: linear-gradient(135deg, var(--amber), #ff8c00);
   border-radius: 999px;
-  padding: 0.28rem 0.55rem;
-  font-size: 0.74rem;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.75rem;
   font-weight: 900;
   white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(255, 165, 0, 0.3);
 }
 
 .total-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.35rem;
-  margin-bottom: 0.75rem;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
   color: var(--muted);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.8rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .meal-block {
-  margin-bottom: 0.65rem;
-  padding: 0.85rem;
+  margin-bottom: 0.8rem;
+  padding: 1rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: rgba(10, 17, 24, 0.82);
-  transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
+  background: rgba(10, 14, 39, 0.6);
+  transition: all 200ms ease;
+  cursor: pointer;
 }
 
 .meal-block:hover {
   transform: translateY(-1px);
-  border-color: var(--line-bright);
-  background: rgba(15, 27, 37, 0.92);
+  border-color: var(--cyan);
+  background: rgba(20, 27, 60, 0.8);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.15);
 }
 
 .meal-type {
   margin: 0 0 0.3rem;
   color: var(--cyan);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .meal-name {
-  margin: 0 0 0.75rem;
-  line-height: 1.35;
+  margin: 0 0 0.8rem;
+  line-height: 1.4;
   font-weight: 800;
+  font-size: 0.95rem;
 }
 
 .macro-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.35rem;
+  gap: 0.4rem;
 }
 
 .macro {
-  min-height: 44px;
-  padding: 0.45rem;
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.045);
+  min-height: 48px;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 180ms ease;
+}
+
+.macro:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--cyan);
 }
 
 .macro span {
   display: block;
   color: var(--subtle);
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 800;
   text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .macro strong {
   display: block;
-  margin-top: 0.12rem;
-  font-size: 0.9rem;
+  margin-top: 0.15rem;
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: var(--text);
 }
 
 /* Micronutrient Display Styles */
 .micronutrient-badges {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-  gap: 0.5rem;
-  margin-top: 0.65rem;
-  padding-top: 0.65rem;
-  border-top: 1px solid rgba(169, 213, 232, 0.15);
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(0, 212, 255, 0.15);
 }
 
 .micro-badge {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.4rem 0.6rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(169, 213, 232, 0.22);
+  gap: 0.3rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 8px;
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.25);
   font-size: 0.7rem;
-  font-weight: 700;
-  transition: background 180ms ease, border-color 180ms ease;
+  font-weight: 800;
+  transition: all 180ms ease;
+  text-align: center;
 }
 
 .micro-badge:hover {
-  background: rgba(255, 255, 255, 0.09);
-  border-color: rgba(169, 213, 232, 0.38);
+  background: rgba(0, 212, 255, 0.15);
+  border-color: rgba(0, 212, 255, 0.45);
+  transform: translateY(-1px);
 }
 
 .micro-badge-icon {
   display: inline-block;
-  font-size: 0.85rem;
+  font-size: 1rem;
 }
 
 .micro-badge-value {
   display: block;
   color: var(--text);
-  font-weight: 800;
+  font-weight: 900;
+  font-size: 0.8rem;
 }
 
 .micro-badge-unit {
   display: block;
   color: var(--subtle);
-  font-size: 0.65rem;
-  font-weight: 600;
+  font-size: 0.6rem;
+  font-weight: 700;
 }
 
 /* Daily micronutrient summary */
 .daily-micronutrient-summary {
   grid-column: span 12;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .micronutrient-overview {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.2rem;
 }
 
 .micronutrient-card {
-  padding: 1rem;
+  padding: 1.5rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.04);
-  transition: border-color 180ms ease, background 180ms ease;
+  background: var(--panel);
+  transition: all 200ms ease;
 }
 
 .micronutrient-card:hover {
   border-color: var(--line-bright);
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--panel-strong);
 }
 
 .micronutrient-card.adequate {
+  border-color: rgba(0, 255, 136, 0.3);
+  background: rgba(0, 255, 136, 0.05);
+}
+
+.micronutrient-card.adequate:hover {
   border-color: var(--green);
-  background: rgba(154, 240, 190, 0.08);
+  background: rgba(0, 255, 136, 0.1);
 }
 
 .micronutrient-card.borderline {
+  border-color: rgba(255, 165, 0, 0.3);
+  background: rgba(255, 165, 0, 0.05);
+}
+
+.micronutrient-card.borderline:hover {
   border-color: var(--amber);
-  background: rgba(246, 192, 106, 0.08);
+  background: rgba(255, 165, 0, 0.1);
 }
 
 .micronutrient-card.deficient {
+  border-color: rgba(255, 51, 102, 0.3);
+  background: rgba(255, 51, 102, 0.05);
+}
+
+.micronutrient-card.deficient:hover {
   border-color: var(--danger);
-  background: rgba(255, 138, 138, 0.08);
+  background: rgba(255, 51, 102, 0.1);
 }
 
 .micronutrient-card.excess {
+  border-color: rgba(0, 212, 255, 0.3);
+  background: rgba(0, 212, 255, 0.05);
+}
+
+.micronutrient-card.excess:hover {
   border-color: var(--cyan);
-  background: rgba(134, 231, 255, 0.08);
+  background: rgba(0, 212, 255, 0.1);
 }
 
 .micronutrient-card-header {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 0.8rem;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
 }
 
 .micronutrient-card-icon {
-  font-size: 1.8rem;
+  font-size: 2rem;
 }
 
 .micronutrient-card-label {
   flex: 1;
-  font-size: 0.82rem;
-  font-weight: 700;
+  font-size: 0.85rem;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--muted);
-}
-
-.micronutrient-card-status {
-  font-size: 1.2rem;
-  font-weight: 800;
 }
 
 .micronutrient-card-value {
-  display: block;
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: var(--text);
-  margin: 0.4rem 0;
-}
-
-.micronutrient-card-target {
-  display: block;
-  font-size: 0.72rem;
-  color: var(--subtle);
-  margin-top: 0.6rem;
-  padding-top: 0.6rem;
-  border-top: 1px solid rgba(169, 213, 232, 0.2);
-}
-
-.micronutrient-progress {
-  height: 6px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 999px;
-  margin-top: 0.6rem;
-  overflow: hidden;
-}
-
-.micronutrient-progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--cyan-strong), var(--green));
-  border-radius: inherit;
-  transition: width 400ms ease;
-}
-
-.micronutrient-progress.deficient .micronutrient-progress-fill {
-  background: linear-gradient(90deg, #ff8a8a, #ff6b6b);
-}
-
-.micronutrient-progress.borderline .micronutrient-progress-fill {
-  background: linear-gradient(90deg, #f6c06a, #e6a944);
-}
-
-.micronutrient-progress.excess .micronutrient-progress-fill {
-  background: linear-gradient(90deg, #86e7ff, #28c8ef);
-}
-
-/* Meal block micronutrient display */
-.meal-block .micronutrient-badges {
-  margin-top: 0.5rem;
-}
-
-.meal-block .micro-badge {
-  padding: 0.35rem 0.5rem;
-  font-size: 0.65rem;
-}
-
-/* Key micronutrients in header */
-.key-micros {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 0.6rem;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--line);
-}
-
-.key-micro-item {
-  text-align: center;
-  padding: 0.6rem;
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(169, 213, 232, 0.15);
-}
-
-.key-micro-icon {
-  display: block;
-  font-size: 1.6rem;
-  margin-bottom: 0.3rem;
-}
-
-.key-micro-value {
-  display: block;
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 0.2rem;
-}
-
-.key-micro-label {
-  display: block;
-  font-size: 0.65rem;
-  color: var(--subtle);
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-}
-
-/* Day plan header improvements */
-.dayplan-header {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 2rem;
-  align-items: start;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--line);
-}
-
-.day-summary {
-  display: grid;
-  gap: 1rem;
-}
-
-.day-total {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.8rem;
-}
-
-.day-total-item {
-  padding: 0.8rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.04);
-  text-align: center;
-}
-
-.day-total-item .microcopy {
-  margin-bottom: 0.4rem;
-}
-
-.day-total-item strong {
-  display: block;
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--amber);
-}
-
-/* Day meals layout */
-.day-meals {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1rem;
-}
-
-.day-meal-item {
-  padding: 1rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: rgba(10, 17, 24, 0.82);
-  transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
-}
-
-.day-meal-item:hover {
-  transform: translateY(-2px);
-  border-color: var(--line-bright);
-  background: rgba(15, 27, 37, 0.92);
-}
-
-/* Micronutrient status banner */
-.micronutrient-status-banner {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 0.8rem;
-  padding: 1rem;
-  margin: 1.5rem 0;
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px dashed var(--line);
-}
-
-.status-indicator {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.6rem;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.status-emoji {
   font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--text);
+  margin: 0.5rem 0;
 }
 
-.status-text {
+.micronutrient-card-status {
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.05em;
 }
 
-.status-text strong {
-  display: block;
+/* Day toggle buttons - FIXED */
+#day-toggle-buttons {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.day-toggle-btn {
+  min-width: 50px;
+  min-height: 50px;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  font-weight: 800;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.day-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--line-bright);
+}
+
+.day-toggle-btn.active {
+  background: linear-gradient(135deg, var(--cyan), var(--green));
+  border-color: var(--cyan);
+  color: #0a0e27;
+  font-weight: 900;
+  box-shadow: 0 0 24px rgba(0, 212, 255, 0.3);
+}
+
+/* Modal styles */
+#day-detail-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+#modal-day-content {
+  max-width: 600px;
+  width: 100%;
+  padding: 2rem;
+  border-radius: var(--radius);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  max-height: 80vh;
+  overflow-y: auto;
+  animation: slideIn 300ms ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-day-totals {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.8rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  margin: 1rem 0;
+  font-weight: 700;
+  font-size: 0.85rem;
   color: var(--text);
-  font-size: 1rem;
-  margin-top: 0.2rem;
+  text-align: center;
 }
 
-.sr-only {
+.modal-meals {
+  display: grid;
+  gap: 1rem;
+}
+
+.modal-meal-item {
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.modal-meal-item .meal-type {
+  font-size: 0.65rem;
+}
+
+.modal-meal-item .meal-name {
+  font-size: 0.95rem;
+  margin: 0.5rem 0;
+}
+
+.modal-meal-item .meal-macros {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin: 0;
+  font-weight: 600;
+}
+
+#modal-close {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
+  top: 2rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms ease;
 }
 
-@media (max-width: 920px) {
-  .hero-grid,
-  .form-grid,
-  .summary-grid,
-  .requirements-grid {
+#modal-close:hover {
+  color: var(--cyan);
+  transform: rotate(90deg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .form-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1225,119 +1311,24 @@ select:focus {
     grid-column: span 12;
   }
 
+  .weekly-grid {
+    grid-template-columns: 1fr;
+  }
+
   .profile-summary {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .mode-selector {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .dayplan-header {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .day-summary {
-    order: -1;
-  }
-
-  .micronutrient-overview,
-  .micronutrient-status-banner {
     grid-template-columns: repeat(2, 1fr);
   }
-}
 
-@media (max-width: 640px) {
-  .site-header,
-  .landing-shell,
-  .dashboard-shell {
-    width: min(100% - 24px, 1180px);
+  #day-toggle-buttons {
+    margin: 1.2rem 0;
   }
 
-  .site-header {
-    padding: 16px 0;
-  }
-
-  .hero-grid {
-    min-height: auto;
-    padding-top: 2rem;
-  }
-
-  .panel {
-    padding: 1rem;
-  }
-
-  .profile-summary,
-  .mode-selector,
-  .total-row,
-  .summary-grid,
-  .requirements-grid,
-  .micronutrient-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .schedule-heading,
-  .meter-stats {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .weekly-grid {
-    grid-template-columns: 1fr;
-    overflow: visible;
-  }
-
-  .day-column {
-    min-width: 0;
-  }
-
-  .button {
-    width: 100%;
-  }
-  
-  .macro-bar-item {
-    grid-template-columns: 1fr;
-  }
-
-  .dayplan-header {
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .day-total {
-    grid-template-columns: 1fr;
-  }
-
-  .day-meals {
-    grid-template-columns: 1fr;
-  }
-
-  .micronutrient-overview,
-  .micronutrient-status-banner {
-    grid-template-columns: 1fr;
-  }
-
-  .key-micros {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .micronutrient-card-value {
-    font-size: 1.4rem;
-  }
-
-  .micro-badge {
-    font-size: 0.6rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+  .day-toggle-btn {
+    flex: 1;
+    min-width: auto;
   }
 }
