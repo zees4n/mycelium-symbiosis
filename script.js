@@ -161,12 +161,13 @@ function initProfilePage() {
       dietaryRestrictions: clean(formData.get("dietaryRestrictions")),
       fitnessCategory: clean(formData.get("fitnessCategory")),
       dietaryNotes: clean(formData.get("dietaryNotes")),
+      dateOfWeek: clean(formData.get("dateOfWeek")),
       savedAt: new Date().toISOString()
     };
 
     saveJson(STORAGE_KEYS.profile, nextProfile);
     
-    // Calculate and save personalized daily plan based on profile
+    // Calculate and save personalized daily plan based on selected day
     const dailyPlan = calculatePersonalizedNutrition(nextProfile);
     saveJson(STORAGE_KEYS.dailyPlan, dailyPlan);
 
@@ -176,7 +177,7 @@ function initProfilePage() {
 
 /**
  * Calculate personalized nutrition requirements based on profile
- * Returns a daily plan with macro targets and suggested meals
+ * Returns a daily plan with macro targets and suggested meals for selected day
  */
 function calculatePersonalizedNutrition(profile) {
   // Calculate BMR (Basal Metabolic Rate) using Harris-Benedict equation
@@ -213,8 +214,10 @@ function calculatePersonalizedNutrition(profile) {
   const carbs = Math.round(carbCalories / 4);
   const fat = Math.round(fatCalories / 9);
 
-  // Scale the standard meal proportions to match calculated macros
-  const standardTotal = [2914, 126, 384, 83]; // calories, protein, carbs, fat from Monday standard plan
+  // Get selected day's macros (default to Monday if not specified)
+  const selectedDay = profile.dateOfWeek || "Monday";
+  const standardTotal = [2914, 126, 384, 83]; // Monday standard
+  
   const scaleFactor = {
     calories: tdee / standardTotal[0],
     protein: protein / standardTotal[1],
@@ -225,8 +228,9 @@ function calculatePersonalizedNutrition(profile) {
   // Use average scale factor for meal distribution
   const avgScale = (scaleFactor.calories + scaleFactor.protein + scaleFactor.carbs + scaleFactor.fat) / 4;
 
-  // Generate scaled meals for today
-  const todayMealMacros = scaleMeals(DAY_MEAL_MACROS.Monday, avgScale);
+  // Generate scaled meals for selected day
+  const dayMacros = DAY_MEAL_MACROS[selectedDay] || DAY_MEAL_MACROS.Monday;
+  const todayMealMacros = scaleMeals(dayMacros, avgScale);
 
   return {
     profile: {
@@ -234,7 +238,8 @@ function calculatePersonalizedNutrition(profile) {
       gender: profile.gender,
       age: profile.age,
       weight: profile.weight,
-      height: profile.height
+      height: profile.height,
+      dateOfWeek: selectedDay
     },
     bmr: Math.round(bmr),
     tdee: tdee,
@@ -246,11 +251,11 @@ function calculatePersonalizedNutrition(profile) {
       fat: fat
     },
     meals: {
-      breakfast: generateMealFromMacros(todayMealMacros[0], "Three Sisters Porridge (Corn, Beans & Squash)"),
-      midSnack: generateMealFromMacros(todayMealMacros[1], "Strawberries & Almonds"),
-      lunch: generateMealFromMacros(todayMealMacros[2], "Rice-Fish-Azolla Bowl"),
-      eveningSnack: generateMealFromMacros(todayMealMacros[3], "Roasted Sweet Potato"),
-      dinner: generateMealFromMacros(todayMealMacros[4], "Tilapia with Quinoa & Greens")
+      breakfast: generateMealFromMacros(todayMealMacros[0], DAY_MEAL_NAMES[selectedDay][0]),
+      midSnack: generateMealFromMacros(todayMealMacros[1], DAY_MEAL_NAMES[selectedDay][1]),
+      lunch: generateMealFromMacros(todayMealMacros[2], DAY_MEAL_NAMES[selectedDay][2]),
+      eveningSnack: generateMealFromMacros(todayMealMacros[3], DAY_MEAL_NAMES[selectedDay][3]),
+      dinner: generateMealFromMacros(todayMealMacros[4], DAY_MEAL_NAMES[selectedDay][4])
     },
     generatedAt: new Date().toISOString()
   };
@@ -301,6 +306,9 @@ function initDashboardPage() {
     initModeSelector(profile);
   }
 
+  // Render day toggles for viewing other days
+  renderDayToggles(profile);
+
   // If a generated plan exists in localStorage, render it
   const usedGenerated = renderGeneratedPlanIfAvailable(profile);
   if (!usedGenerated && !dailyPlan) {
@@ -308,7 +316,91 @@ function initDashboardPage() {
   }
 
   initHydration(profile);
-  renderGenderSlot(profile);
+}
+
+/**
+ * Render day toggle buttons to view other days' meals (without macros)
+ */
+function renderDayToggles(profile) {
+  const container = document.getElementById("day-toggle-buttons");
+  if (!container) return;
+
+  const dailyPlan = getDailyPlan();
+  const selectedDay = dailyPlan?.profile?.dateOfWeek || "Monday";
+
+  container.innerHTML = "";
+
+  DAYS.forEach((day) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `day-toggle-btn ${day === selectedDay ? "active" : ""}`;
+    button.textContent = day.substring(0, 3);
+    button.setAttribute("aria-label", `View ${day} meals`);
+    button.setAttribute("data-day", day);
+
+    if (day === selectedDay) {
+      button.setAttribute("aria-current", "true");
+    }
+
+    button.addEventListener("click", () => {
+      showOtherDayModal(day, profile);
+    });
+
+    container.appendChild(button);
+  });
+}
+
+/**
+ * Show modal with other day's meals (no macro calculations)
+ */
+function showOtherDayModal(day, profile) {
+  const modal = document.getElementById("day-detail-modal");
+  const content = document.getElementById("modal-day-content");
+  const closeBtn = document.getElementById("modal-close");
+
+  if (!modal || !content) return;
+
+  // Get the standard meal plan for this day (no adjustments)
+  const standardPlan = MEAL_PLAN_VALUES.standard;
+  const mealNames = DAY_MEAL_NAMES[day];
+  const mealMacros = standardPlan.values[day];
+  const dayTotals = standardPlan.totals[day];
+
+  let html = `<h3>${day}'s Meal Plan (Standard)</h3>`;
+  html += `<div class="modal-day-totals">
+    <span>${dayTotals[0]} kcal</span>
+    <span>${dayTotals[1]}g protein</span>
+    <span>${dayTotals[2]}g carbs</span>
+    <span>${dayTotals[3]}g fat</span>
+  </div>`;
+
+  html += `<div class="modal-meals">`;
+  
+  MEAL_TYPES.forEach((mealType, idx) => {
+    const [cal, pro, carb, fat] = mealMacros[idx];
+    html += `
+      <div class="modal-meal-item">
+        <p class="meal-type">${mealType}</p>
+        <h4 class="meal-name">${escapeHtml(mealNames[idx])}</h4>
+        <p class="meal-macros">${cal} kcal | ${pro}g P | ${carb}g C | ${fat}g F</p>
+      </div>
+    `;
+  });
+
+  html += `</div>`;
+
+  content.innerHTML = html;
+  modal.hidden = false;
+
+  closeBtn.addEventListener("click", () => {
+    modal.hidden = true;
+  });
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.hidden = true;
+    }
+  });
 }
 
 function initModeSelector(profile) {
@@ -331,12 +423,13 @@ function initModeSelector(profile) {
 }
 
 /**
- * Render personalized daily nutrition plan with micronutrient info
+ * Render personalized daily nutrition plan with calculated macros for selected day only
  */
 function renderPersonalizedDailyPlan(dailyPlan, profile) {
   const dayMealsContainer = document.getElementById("day-meals");
   const dayTotalsContainer = document.querySelector(".day-total");
   const keyMicrosContainer = document.getElementById("key-micros");
+  const dayDateElement = document.getElementById("day-date");
 
   if (!dayMealsContainer || !dayTotalsContainer) return;
 
@@ -344,6 +437,13 @@ function renderPersonalizedDailyPlan(dailyPlan, profile) {
   keyMicrosContainer.innerHTML = "";
 
   const totals = dailyPlan.macroTargets;
+  const selectedDay = dailyPlan.profile.dateOfWeek;
+
+  // Update date display
+  if (dayDateElement) {
+    dayDateElement.textContent = `Selected: ${selectedDay}`;
+  }
+
   const meals = [
     { type: "Breakfast", data: dailyPlan.meals.breakfast },
     { type: "Mid-morning snack", data: dailyPlan.meals.midSnack },
@@ -352,12 +452,12 @@ function renderPersonalizedDailyPlan(dailyPlan, profile) {
     { type: "Dinner", data: dailyPlan.meals.dinner }
   ];
 
-  // Update day totals
+  // Update day totals with calculated values
   document.getElementById("totals-calories").textContent = totals.calories + " kcal";
   document.getElementById("totals-protein").textContent = totals.protein + "g";
   document.getElementById("totals-carbs").textContent = totals.carbs + "g";
 
-  // Render each meal item
+  // Render each meal item with calculated macros
   meals.forEach(({ type, data }) => {
     const mealItem = document.createElement("div");
     mealItem.className = "day-meal-item";
@@ -697,18 +797,6 @@ function updateHydrationDisplay(profile) {
   const progress = document.getElementById("water-progress");
   progress.setAttribute("aria-valuenow", `${percent}`);
   progress.setAttribute("aria-valuetext", `${remaining} ml remaining`);
-}
-
-function renderGenderSlot(profile) {
-  const slot = document.getElementById("gender-calorie-slot");
-  if (!slot) return;
-  const status = getGenderCalorieAdjustment(profile);
-  const strong = slot.querySelector("strong");
-  if (strong) strong.textContent = status.label;
-}
-
-function getGenderCalorieAdjustment() {
-  return { active: false, label: "No adjustment active" };
 }
 
 function getWaterTarget(profile) {
