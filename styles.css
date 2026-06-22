@@ -864,12 +864,81 @@ select:focus {
   padding-top: 1.5rem;
 }
 
+.dayplan-section {
+  margin-top: 1.5rem;
+}
+
 .schedule-heading {
   display: flex;
   align-items: end;
   justify-content: space-between;
   gap: 1.5rem;
   margin-bottom: 1.5rem;
+}
+
+.dayplan-header {
+  margin-bottom: 2rem;
+}
+
+.day-summary {
+  margin-top: 1.5rem;
+}
+
+.day-total {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  padding: 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.day-total-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.day-total-item strong {
+  font-size: 1.3rem;
+  color: var(--text);
+}
+
+.key-micros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+
+.key-micro-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.key-micro-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.key-micro-value {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.key-micro-label {
+  font-size: 0.65rem;
+  color: var(--subtle);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-top: 0.3rem;
 }
 
 .active-plan-title {
@@ -957,6 +1026,22 @@ select:focus {
   box-shadow: 0 0 16px rgba(0, 212, 255, 0.15);
 }
 
+.day-meal-item {
+  margin-bottom: 1rem;
+  padding: 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(10, 14, 39, 0.6);
+  transition: all 200ms ease;
+}
+
+.day-meal-item:hover {
+  transform: translateY(-1px);
+  border-color: var(--cyan);
+  background: rgba(20, 27, 60, 0.8);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.15);
+}
+
 .meal-type {
   margin: 0 0 0.3rem;
   color: var(--cyan);
@@ -998,250 +1083,109 @@ select:focus {
   color: var(--subtle);
   font-size: 0.65rem;
   font-weight: 800;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  margin-bottom: 0.3rem;
 }
 
 .macro strong {
   display: block;
-  margin-top: 0.15rem;
-  font-size: 0.95rem;
-  font-weight: 900;
+  font-size: 1rem;
+  font-weight: 800;
   color: var(--text);
 }
 
-/* Micronutrient Display Styles */
 .micronutrient-badges {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-  gap: 0.6rem;
+  display: flex;
+  gap: 0.5rem;
   margin-top: 0.8rem;
-  padding-top: 0.8rem;
-  border-top: 1px solid rgba(0, 212, 255, 0.15);
+  flex-wrap: wrap;
 }
 
 .micro-badge {
   display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 0.3rem;
-  padding: 0.5rem 0.7rem;
-  border-radius: 8px;
-  background: rgba(0, 212, 255, 0.08);
-  border: 1px solid rgba(0, 212, 255, 0.25);
+  padding: 0.4rem 0.7rem;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 999px;
   font-size: 0.7rem;
-  font-weight: 800;
-  transition: all 180ms ease;
-  text-align: center;
-}
-
-.micro-badge:hover {
-  background: rgba(0, 212, 255, 0.15);
-  border-color: rgba(0, 212, 255, 0.45);
-  transform: translateY(-1px);
 }
 
 .micro-badge-icon {
-  display: inline-block;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .micro-badge-value {
-  display: block;
+  font-weight: 800;
   color: var(--text);
-  font-weight: 900;
-  font-size: 0.8rem;
 }
 
 .micro-badge-unit {
-  display: block;
   color: var(--subtle);
-  font-size: 0.6rem;
-  font-weight: 700;
 }
 
-/* Daily micronutrient summary */
-.daily-micronutrient-summary {
-  grid-column: span 12;
-  margin-bottom: 2.5rem;
-}
-
-.micronutrient-overview {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.2rem;
-}
-
-.micronutrient-card {
-  padding: 1.5rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--panel);
-  transition: all 200ms ease;
-}
-
-.micronutrient-card:hover {
-  border-color: var(--line-bright);
-  background: var(--panel-strong);
-}
-
-.micronutrient-card.adequate {
-  border-color: rgba(0, 255, 136, 0.3);
-  background: rgba(0, 255, 136, 0.05);
-}
-
-.micronutrient-card.adequate:hover {
-  border-color: var(--green);
-  background: rgba(0, 255, 136, 0.1);
-}
-
-.micronutrient-card.borderline {
-  border-color: rgba(255, 165, 0, 0.3);
-  background: rgba(255, 165, 0, 0.05);
-}
-
-.micronutrient-card.borderline:hover {
-  border-color: var(--amber);
-  background: rgba(255, 165, 0, 0.1);
-}
-
-.micronutrient-card.deficient {
-  border-color: rgba(255, 51, 102, 0.3);
-  background: rgba(255, 51, 102, 0.05);
-}
-
-.micronutrient-card.deficient:hover {
-  border-color: var(--danger);
-  background: rgba(255, 51, 102, 0.1);
-}
-
-.micronutrient-card.excess {
-  border-color: rgba(0, 212, 255, 0.3);
-  background: rgba(0, 212, 255, 0.05);
-}
-
-.micronutrient-card.excess:hover {
-  border-color: var(--cyan);
-  background: rgba(0, 212, 255, 0.1);
-}
-
-.micronutrient-card-header {
+/* Modal styles */
+.day-detail-modal {
+  position: fixed;
+  inset: 0;
   display: flex;
   align-items: center;
-  gap: 0.8rem;
-  margin-bottom: 1rem;
-}
-
-.micronutrient-card-icon {
-  font-size: 2rem;
-}
-
-.micronutrient-card-label {
-  flex: 1;
-  font-size: 0.85rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.micronutrient-card-value {
-  font-size: 1.4rem;
-  font-weight: 900;
-  color: var(--text);
-  margin: 0.5rem 0;
-}
-
-.micronutrient-card-status {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-/* Day toggle buttons - FIXED */
-#day-toggle-buttons {
-  display: flex;
-  gap: 0.6rem;
-  flex-wrap: wrap;
   justify-content: center;
-  margin: 2rem 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  padding: 2rem;
 }
 
-.day-toggle-btn {
-  min-width: 50px;
-  min-height: 50px;
-  padding: 0.7rem 1rem;
+.day-detail-modal[hidden] {
+  display: none;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--bg-soft);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--muted);
-  font-weight: 800;
-  font-size: 0.9rem;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text);
+  font-size: 1.5rem;
   cursor: pointer;
   transition: all 200ms ease;
 }
 
-.day-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: var(--line-bright);
-}
-
-.day-toggle-btn.active {
-  background: linear-gradient(135deg, var(--cyan), var(--green));
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.1);
   border-color: var(--cyan);
-  color: #0a0e27;
-  font-weight: 900;
-  box-shadow: 0 0 24px rgba(0, 212, 255, 0.3);
-}
-
-/* Modal styles */
-#day-detail-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-}
-
-#modal-day-content {
-  max-width: 600px;
-  width: 100%;
-  padding: 2rem;
-  border-radius: var(--radius);
-  background: var(--panel);
-  border: 1px solid var(--line);
-  max-height: 80vh;
-  overflow-y: auto;
-  animation: slideIn 300ms ease;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
 }
 
 .modal-day-totals {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 0.8rem;
+  margin: 1.5rem 0;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 8px;
-  margin: 1rem 0;
-  font-weight: 700;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius);
   font-size: 0.85rem;
-  color: var(--text);
-  text-align: center;
+  font-weight: 700;
 }
 
 .modal-meals {
@@ -1252,83 +1196,67 @@ select:focus {
 .modal-meal-item {
   padding: 1rem;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.02);
 }
 
-.modal-meal-item .meal-type {
-  font-size: 0.65rem;
-}
-
-.modal-meal-item .meal-name {
-  font-size: 0.95rem;
-  margin: 0.5rem 0;
-}
-
-.modal-meal-item .meal-macros {
-  font-size: 0.8rem;
-  color: var(--muted);
+.modal-meal-item h4 {
   margin: 0;
-  font-weight: 600;
 }
 
-#modal-close {
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  background: none;
-  border: none;
-  color: var(--text);
-  font-size: 1.5rem;
+.meal-macros {
+  margin: 0.5rem 0 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.day-toggle-buttons {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.6rem;
+  margin: 1.5rem 0;
+}
+
+.day-toggle-btn {
+  padding: 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 0.85rem;
   cursor: pointer;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: all 200ms ease;
 }
 
-#modal-close:hover {
-  color: var(--cyan);
-  transform: rotate(90deg);
+.day-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--cyan);
+  color: var(--text);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
+.day-toggle-btn.active {
+  color: #0a0e27;
+  background: linear-gradient(135deg, var(--cyan), var(--green));
+  border-color: var(--cyan);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.3);
+}
 
+@media (max-width: 768px) {
   .form-grid {
     grid-template-columns: 1fr;
   }
 
   .control-panel,
-  .hydration-panel,
-  .future-panel {
+  .hydration-panel {
     grid-column: span 12;
   }
 
-  .weekly-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .profile-summary {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .mode-selector {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  #day-toggle-buttons {
-    margin: 1.2rem 0;
-  }
-
-  .day-toggle-btn {
-    flex: 1;
-    min-width: auto;
+  .modal-content {
+    padding: 1.5rem;
   }
 }
