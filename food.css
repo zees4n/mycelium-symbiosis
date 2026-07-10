@@ -1,10 +1,10 @@
 /* ========================================
-   MYCELIUM SYMBIOSIS - PREMIUM DESIGN
-   Alive. Scientific. Organic. Elegant.
+   FOOD PAGE - ELEGANT EXHIBITION EXPERIENCE
+   Scientific. Beautiful. Living. Interactive.
    ======================================== */
 
 :root {
-  /* Colors */
+  /* Extended palette for food page */
   --bg: #ffffff;
   --text-primary: #111111;
   --text-secondary: #666666;
@@ -16,35 +16,6 @@
   --accent-green: #6e8b74;
   --accent-green-light: rgba(110, 139, 116, 0.04);
   --accent-green-hover: rgba(110, 139, 116, 0.08);
-  
-  /* Typography */
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif;
-  --font-weight-thin: 300;
-  --font-weight-light: 400;
-  --font-weight-regular: 500;
-  --font-weight-medium: 600;
-  
-  /* Spacing */
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 12px;
-  --spacing-lg: 16px;
-  --spacing-xl: 24px;
-  --spacing-2xl: 32px;
-  --spacing-3xl: 48px;
-  --spacing-4xl: 64px;
-  
-  /* Radius */
-  --radius-lg: 18px;
-  --radius-xl: 24px;
-  --radius-2xl: 32px;
-  
-  /* Shadows */
-  --shadow-xs: 0 2px 4px var(--shadow-sm);
-  --shadow-sm-card: 0 4px 12px var(--shadow-sm);
-  --shadow-md-card: 0 8px 24px var(--shadow-md);
-  --shadow-lg-card: 0 16px 40px var(--shadow-lg);
-  --shadow-inset: inset 0 1px 2px rgba(255, 255, 255, 0.5);
 }
 
 /* ========================================
@@ -64,11 +35,11 @@ html {
 }
 
 body {
-  font-family: var(--font-family);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif;
   background-color: var(--bg);
   color: var(--text-primary);
   font-size: 16px;
-  font-weight: var(--font-weight-light);
+  font-weight: 400;
   line-height: 1.6;
   overflow-x: hidden;
   position: relative;
@@ -86,6 +57,12 @@ body::before {
     radial-gradient(circle at 50% 95%, rgba(110, 139, 116, 0.025) 0%, transparent 45%),
     linear-gradient(135deg, #ffffff 0%, #fafbf8 100%);
   pointer-events: none;
+  animation: atmosphereShift 40s ease-in-out infinite;
+}
+
+@keyframes atmosphereShift {
+  0%, 100% { opacity: 1; transform: translate(0, 0); }
+  50% { opacity: 0.95; transform: translate(8px, -4px); }
 }
 
 /* Subtle noise texture */
@@ -113,7 +90,7 @@ body::after {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
-  padding: var(--spacing-lg) var(--spacing-xl);
+  padding: 16px 24px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
   animation: slideDown 500ms ease-out;
 }
@@ -140,11 +117,11 @@ body::after {
 .ms-nav__brand {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: 8px;
   text-decoration: none;
   color: var(--text-primary);
   font-size: 14px;
-  font-weight: var(--font-weight-medium);
+  font-weight: 600;
   letter-spacing: 0.5px;
   transition: all 300ms ease-out;
 }
@@ -169,7 +146,7 @@ body::after {
 
 .ms-nav__links {
   display: flex;
-  gap: var(--spacing-2xl);
+  gap: 32px;
   align-items: center;
 }
 
@@ -177,7 +154,7 @@ body::after {
   color: var(--text-secondary);
   text-decoration: none;
   font-size: 14px;
-  font-weight: var(--font-weight-light);
+  font-weight: 400;
   transition: all 300ms ease-out;
   position: relative;
 }
@@ -208,11 +185,11 @@ body::after {
 .ms-page {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--spacing-xl);
+  padding: 0 24px;
 }
 
 .chapter {
-  margin-bottom: var(--spacing-4xl);
+  margin-bottom: 64px;
   animation: fadeUpStagger 600ms ease-out;
 }
 
@@ -238,16 +215,16 @@ body::after {
    ======================================== */
 
 .ms-hero {
-  padding: var(--spacing-4xl) 0;
+  padding: 64px 0;
   text-align: center;
 }
 
 .ms-hero__title {
   font-size: clamp(48px, 8vw, 64px);
-  font-weight: var(--font-weight-thin);
+  font-weight: 300;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: 16px;
   color: var(--text-primary);
   animation: titleReveal 700ms ease-out;
 }
@@ -265,7 +242,7 @@ body::after {
 
 .ms-hero__lede {
   font-size: 18px;
-  font-weight: var(--font-weight-light);
+  font-weight: 400;
   color: var(--text-secondary);
   max-width: 600px;
   margin: 0 auto;
@@ -283,51 +260,51 @@ body::after {
    ======================================== */
 
 .ms-section-head {
-  margin-bottom: var(--spacing-2xl);
-  padding-bottom: var(--spacing-xl);
+  margin-bottom: 32px;
+  padding-bottom: 24px;
   border-bottom: 1px solid var(--border);
   animation: fadeIn 600ms ease-out;
 }
 
 .ms-label {
   font-size: 12px;
-  font-weight: var(--font-weight-medium);
+  font-weight: 600;
   letter-spacing: 0.8px;
   color: var(--accent-green);
   text-transform: uppercase;
-  margin-bottom: var(--spacing-md);
+  margin-bottom: 12px;
   display: block;
   opacity: 0.9;
 }
 
 .ms-section-title {
   font-size: clamp(24px, 5vw, 32px);
-  font-weight: var(--font-weight-thin);
+  font-weight: 300;
   letter-spacing: -0.01em;
   line-height: 1.2;
   color: var(--text-primary);
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: 16px;
 }
 
 .ms-meta {
   font-size: 14px;
   color: var(--text-muted);
-  margin-top: var(--spacing-md);
-  font-weight: var(--font-weight-light);
+  margin-top: 12px;
+  font-weight: 400;
 }
 
 /* ========================================
-   CARDS - ENHANCED
+   CARDS - ENHANCED WITH MICROINTERACTIONS
    ======================================== */
 
 .ms-card {
   background: linear-gradient(135deg, #ffffff 0%, #fafbf8 100%);
   border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  padding: var(--spacing-2xl);
+  border-radius: 24px;
+  padding: 32px;
   box-shadow: 
-    var(--shadow-sm-card),
-    var(--shadow-inset);
+    0 4px 12px var(--shadow-sm),
+    inset 0 1px 2px rgba(255, 255, 255, 0.5);
   transition: all 350ms cubic-bezier(0.23, 1, 0.320, 1);
   position: relative;
   overflow: hidden;
@@ -343,42 +320,56 @@ body::after {
   pointer-events: none;
 }
 
+.ms-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(110, 139, 116, 0.02) 100%);
+  opacity: 0;
+  transition: opacity 350ms ease-out;
+  pointer-events: none;
+}
+
 .ms-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-12px);
   box-shadow: 
-    var(--shadow-md-card),
-    var(--shadow-inset);
-  border-color: rgba(110, 139, 116, 0.12);
+    0 12px 32px rgba(0, 0, 0, 0.12),
+    inset 0 1px 2px rgba(255, 255, 255, 0.5);
+  border-color: rgba(110, 139, 116, 0.15);
 }
 
 .ms-card:hover::before {
   opacity: 1;
 }
 
+.ms-card:hover::after {
+  opacity: 1;
+}
+
 /* ========================================
-   PROFILE GRID
+   PROFILE GRID - EXHIBITION LAYOUT
    ======================================== */
 
 .ms-profile-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--spacing-lg);
-  margin-top: var(--spacing-xl);
+  gap: 16px;
+  margin-top: 24px;
 }
 
 .profile-fact {
-  padding: var(--spacing-xl);
+  padding: 24px;
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: 18px;
   background: linear-gradient(135deg, #ffffff 0%, #fafbf8 100%);
   transition: all 350ms cubic-bezier(0.23, 1, 0.320, 1);
   text-align: center;
-  box-shadow: var(--shadow-xs);
+  box-shadow: 0 2px 4px var(--shadow-sm);
   position: relative;
   overflow: hidden;
 }
 
-.profile-fact::after {
+.profile-fact::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -388,10 +379,26 @@ body::after {
   pointer-events: none;
 }
 
+.profile-fact::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-green), transparent);
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+
 .profile-fact:hover {
   border-color: rgba(110, 139, 116, 0.15);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md-card);
+  transform: translateY(-8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.profile-fact:hover::before {
+  opacity: 1;
 }
 
 .profile-fact:hover::after {
@@ -401,36 +408,36 @@ body::after {
 .profile-fact span {
   display: block;
   font-size: 12px;
-  font-weight: var(--font-weight-medium);
+  font-weight: 600;
   letter-spacing: 0.5px;
   color: var(--text-muted);
   text-transform: uppercase;
-  margin-bottom: var(--spacing-md);
+  margin-bottom: 12px;
 }
 
 .profile-fact strong {
   display: block;
   font-size: 20px;
-  font-weight: var(--font-weight-light);
+  font-weight: 400;
   color: var(--text-primary);
   word-break: break-word;
 }
 
 /* ========================================
-   HYDRATION - CREATIVE POT
+   SPLIT LAYOUT - HYDRATION & DAY SELECTOR
    ======================================== */
 
 .ms-split {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: var(--spacing-3xl);
+  gap: 48px;
   align-items: center;
 }
 
 .ms-hydration {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2xl);
+  gap: 32px;
 }
 
 .ms-hydration__visual {
@@ -443,12 +450,13 @@ body::after {
   animation: fadeIn 700ms ease-out 300ms both;
 }
 
+/* Hydration pot - elegant visual */
 .hydration-pot {
   position: relative;
   width: 160px;
   height: 240px;
   border: 2px solid var(--text-primary);
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  border-radius: 0 0 18px 18px;
   background: linear-gradient(to top, 
     var(--accent-green) var(--water-level, 0%),
     transparent var(--water-level, 0%)
@@ -494,455 +502,505 @@ body::after {
 .hydration-stat-row {
   display: flex;
   justify-content: space-around;
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: 16px;
 }
 
 .hydration-stat {
-  text-align: center;
-  padding: var(--spacing-lg);
-  border-radius: var(--radius-lg);
-  background: var(--accent-green-light);
-  transition: all 300ms ease-out;
-}
-
-.hydration-stat:hover {
-  background: var(--accent-green-hover);
-  transform: translateY(-2px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 
 .hydration-stat-label {
   font-size: 12px;
+  font-weight: 600;
   color: var(--text-muted);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: 0.5px;
   text-transform: uppercase;
-  margin-bottom: var(--spacing-xs);
+  letter-spacing: 0.5px;
 }
 
 .hydration-stat-value {
-  font-size: 24px;
-  font-weight: var(--font-weight-light);
+  font-size: 28px;
+  font-weight: 300;
   color: var(--text-primary);
 }
 
 .hydration-form {
   display: flex;
-  gap: var(--spacing-md);
-  margin-top: var(--spacing-lg);
-  animation: fadeIn 700ms ease-out 500ms both;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 24px;
 }
 
 .hydration-input {
   flex: 1;
+  min-width: 150px;
 }
 
 .ms-field {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: 8px;
 }
 
 .ms-field__label {
   font-size: 12px;
-  font-weight: var(--font-weight-medium);
+  font-weight: 600;
   color: var(--text-secondary);
-  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .ms-field input {
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: 12px 16px;
   border: 1px solid var(--border);
-  border-radius: 50px;
-  font-size: 16px;
-  background: linear-gradient(135deg, #ffffff 0%, #fafbf8 100%);
+  border-radius: 12px;
+  background: #ffffff;
   color: var(--text-primary);
+  font-size: 16px;
   transition: all 300ms ease-out;
-  font-weight: var(--font-weight-light);
-  box-shadow: var(--shadow-xs);
+}
+
+.ms-field input:focus {
+  outline: none;
+  border-color: var(--accent-green);
+  box-shadow: 0 0 0 3px rgba(110, 139, 116, 0.1);
+  transform: translateY(-2px);
 }
 
 .ms-field input::placeholder {
   color: var(--text-muted);
 }
 
-.ms-field input:focus {
-  outline: none;
-  border-color: var(--accent-green);
-  box-shadow: 
-    0 0 0 3px rgba(110, 139, 116, 0.1),
-    var(--shadow-sm-card);
-  transform: translateY(-2px);
-}
+/* ========================================
+   BUTTONS
+   ======================================== */
 
 .ms-btn {
-  padding: var(--spacing-md) var(--spacing-lg);
-  border: none;
-  border-radius: 50px;
-  font-size: 14px;
-  font-weight: var(--font-weight-medium);
-  cursor: pointer;
-  transition: all 300ms ease-out;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-sm);
-  white-space: nowrap;
-  letter-spacing: 0.3px;
-  box-shadow: var(--shadow-xs);
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 300ms cubic-bezier(0.23, 1, 0.320, 1);
+  font-weight: 600;
+  font-size: 14px;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
 }
 
 .ms-btn--primary {
   background: var(--accent-green);
   color: #ffffff;
+  box-shadow: 0 4px 12px rgba(110, 139, 116, 0.3);
 }
 
 .ms-btn--primary:hover {
-  background: rgba(110, 139, 116, 0.9);
+  background: #5a9a82;
   transform: translateY(-2px);
-  box-shadow: var(--shadow-sm-card);
+  box-shadow: 0 8px 24px rgba(110, 139, 116, 0.4);
+}
+
+.ms-btn--primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(110, 139, 116, 0.2);
 }
 
 .ms-btn--secondary {
-  background: #ffffff;
+  background: rgba(110, 139, 116, 0.08);
   color: var(--text-primary);
   border: 1px solid var(--border);
 }
 
 .ms-btn--secondary:hover {
-  border-color: rgba(110, 139, 116, 0.2);
-  background: var(--accent-green-light);
+  background: rgba(110, 139, 116, 0.12);
+  border-color: var(--accent-green);
   transform: translateY(-2px);
 }
 
 /* ========================================
-   PROFILE CARD
+   DAY PILLS - ORGANIC SELECTION
    ======================================== */
 
-.profile-card {
-  background: linear-gradient(135deg, #ffffff 0%, #fafbf8 100%);
+.ms-day-pills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 12px;
+  animation: fadeIn 600ms ease-out 200ms both;
+}
+
+.ms-day-pill {
+  padding: 16px 20px;
   border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  padding: var(--spacing-2xl);
-  box-shadow: 
-    var(--shadow-sm-card),
-    var(--shadow-inset);
+  border-radius: 16px;
+  background: #ffffff;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: all 300ms cubic-bezier(0.23, 1, 0.320, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.ms-day-pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(110, 139, 116, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+  pointer-events: none;
+}
+
+.ms-day-pill:hover {
+  border-color: var(--accent-green);
+  background: var(--accent-green-light);
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(110, 139, 116, 0.15);
+}
+
+.ms-day-pill:hover::before {
+  opacity: 1;
+}
+
+.ms-day-pill.active {
+  background: var(--accent-green);
+  color: #ffffff;
+  border-color: var(--accent-green);
+  box-shadow: 0 8px 24px rgba(110, 139, 116, 0.3);
 }
 
 /* ========================================
-   DAILY NUTRITION SECTION
+   NUTRITION SECTION
    ======================================== */
 
 .ms-nutrition {
-  margin-top: var(--spacing-4xl);
+  position: relative;
 }
 
 .ms-nutrition__head {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: var(--spacing-2xl);
+  display: flex;
+  justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: var(--spacing-3xl);
-  padding-bottom: var(--spacing-xl);
+  gap: 32px;
+  margin-bottom: 48px;
+  padding-bottom: 32px;
   border-bottom: 1px solid var(--border);
+  animation: fadeIn 600ms ease-out;
 }
 
 .ms-totals {
-  display: flex;
-  gap: var(--spacing-xl);
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  align-items: start;
 }
 
 .ms-totals__item {
   text-align: right;
-  padding: var(--spacing-lg) var(--spacing-xl);
-  border-radius: var(--radius-lg);
-  background: var(--accent-green-light);
-  transition: all 300ms ease-out;
-}
-
-.ms-totals__item:hover {
-  background: var(--accent-green-hover);
-  transform: translateY(-2px);
 }
 
 .ms-totals__item span {
   display: block;
   font-size: 12px;
+  font-weight: 600;
   color: var(--text-muted);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: 0.4px;
   text-transform: uppercase;
-  margin-bottom: var(--spacing-xs);
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
 }
 
 .ms-totals__item strong {
   display: block;
-  font-size: 32px;
-  font-weight: var(--font-weight-thin);
+  font-size: 24px;
+  font-weight: 300;
   color: var(--text-primary);
 }
 
 /* ========================================
-   MICRONUTRIENTS
+   MICRONUTRIENTS - ELEGANT DISPLAY
    ======================================== */
 
 .ms-micros {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-lg);
-  margin: var(--spacing-3xl) 0;
-  padding: var(--spacing-2xl);
-  background: linear-gradient(135deg, var(--accent-green-light) 0%, transparent 100%);
-  border-radius: var(--radius-xl);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+  animation: fadeIn 600ms ease-out 100ms both;
+}
+
+.ms-micro-card {
+  padding: 24px;
   border: 1px solid var(--border);
-  animation: fadeIn 700ms ease-out 400ms both;
-}
-
-.key-micro-item {
-  text-align: center;
-  padding: var(--spacing-lg);
-  transition: all 300ms ease-out;
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.5);
-}
-
-.key-micro-item:hover {
-  transform: translateY(-4px);
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: var(--shadow-sm-card);
-}
-
-.key-micro-icon {
-  font-size: 32px;
-  margin-bottom: var(--spacing-md);
-  display: block;
-  filter: grayscale(0%) opacity(1);
-  transition: all 300ms ease-out;
-}
-
-.key-micro-item:hover .key-micro-icon {
-  transform: scale(1.1) rotate(5deg);
-}
-
-.key-micro-value {
-  font-size: 22px;
-  font-weight: var(--font-weight-light);
-  color: var(--text-primary);
-  margin-bottom: var(--spacing-xs);
-}
-
-.key-micro-label {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
-}
-
-/* ========================================
-   MEAL GRID - RICH CARDS
-   ======================================== */
-
-.ms-food-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--spacing-xl);
-  margin-top: var(--spacing-2xl);
-}
-
-.day-meal-item {
-  padding: var(--spacing-xl);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: 18px;
   background: linear-gradient(135deg, #ffffff 0%, #fafbf8 100%);
-  transition: all 350ms cubic-bezier(0.23, 1, 0.320, 1);
-  animation: mealReveal 600ms ease-out;
-  animation-fill-mode: both;
-  box-shadow: 
-    var(--shadow-xs),
-    var(--shadow-inset);
+  transition: all 300ms cubic-bezier(0.23, 1, 0.320, 1);
   position: relative;
   overflow: hidden;
 }
 
-@keyframes mealReveal {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.day-meal-item:nth-child(1) { animation-delay: 100ms; }
-.day-meal-item:nth-child(2) { animation-delay: 150ms; }
-.day-meal-item:nth-child(3) { animation-delay: 200ms; }
-.day-meal-item:nth-child(4) { animation-delay: 250ms; }
-.day-meal-item:nth-child(5) { animation-delay: 300ms; }
-
-.day-meal-item::before {
+.ms-micro-card::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 20% 30%, rgba(110, 139, 116, 0.12) 0%, transparent 50%);
-  opacity: 0;
-  transition: opacity 350ms ease-out;
-  pointer-events: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent-green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 400ms cubic-bezier(0.23, 1, 0.320, 1);
 }
 
-.day-meal-item:hover {
+.ms-micro-card:hover {
   transform: translateY(-8px);
-  box-shadow: 
-    var(--shadow-md-card),
-    var(--shadow-inset);
-  border-color: rgba(110, 139, 116, 0.12);
+  box-shadow: 0 8px 24px rgba(110, 139, 116, 0.12);
 }
 
-.day-meal-item:hover::before {
-  opacity: 1;
+.ms-micro-card:hover::before {
+  transform: scaleX(1);
 }
 
-.meal-type {
+.ms-micro-label {
   font-size: 12px;
-  font-weight: var(--font-weight-medium);
-  color: var(--accent-green);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
   letter-spacing: 0.5px;
-  text-transform: uppercase;
-  margin-bottom: var(--spacing-sm);
-  opacity: 0.9;
+  margin-bottom: 8px;
 }
 
-.meal-name {
-  font-size: 18px;
-  font-weight: var(--font-weight-light);
+.ms-micro-value {
+  font-size: 24px;
+  font-weight: 300;
   color: var(--text-primary);
-  margin-bottom: var(--spacing-lg);
-  line-height: 1.4;
+  margin-bottom: 12px;
 }
 
-.macro-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
+.ms-micro-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--accent-green-light);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
 }
 
-.macro {
-  padding: var(--spacing-lg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: linear-gradient(135deg, rgba(110, 139, 116, 0.04) 0%, transparent 100%);
-  text-align: center;
-  transition: all 300ms ease-out;
-}
-
-.macro:hover {
-  background: linear-gradient(135deg, rgba(110, 139, 116, 0.08) 0%, transparent 100%);
-  border-color: rgba(110, 139, 116, 0.2);
-  transform: translateY(-2px);
-}
-
-.macro span {
-  display: block;
-  font-size: 11px;
-  color: var(--text-muted);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: 0.3px;
-  text-transform: uppercase;
-  margin-bottom: var(--spacing-xs);
-}
-
-.macro strong {
-  display: block;
-  font-size: 18px;
-  font-weight: var(--font-weight-light);
-  color: var(--text-primary);
-}
-
-.micronutrient-badges {
-  display: flex;
-  gap: var(--spacing-md);
-  flex-wrap: wrap;
-  margin-top: var(--spacing-lg);
-  padding-top: var(--spacing-lg);
-  border-top: 1px solid var(--border);
-}
-
-.micro-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  padding: var(--spacing-sm) var(--spacing-md);
-  border: 1px solid rgba(110, 139, 116, 0.2);
-  border-radius: 50px;
-  background: rgba(110, 139, 116, 0.04);
-  font-size: 12px;
-  font-weight: var(--font-weight-light);
-  transition: all 300ms ease-out;
-}
-
-.micro-badge:hover {
-  background: rgba(110, 139, 116, 0.1);
-  border-color: rgba(110, 139, 116, 0.3);
-  transform: translateY(-2px);
-}
-
-.micro-badge-icon {
-  font-size: 14px;
-}
-
-.micro-badge-value {
-  font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
-}
-
-.micro-badge-unit {
-  font-size: 10px;
-  color: var(--text-muted);
+.ms-micro-bar__fill {
+  height: 100%;
+  background: var(--accent-green);
+  border-radius: 2px;
+  transition: width 600ms cubic-bezier(0.23, 1, 0.320, 1);
 }
 
 /* ========================================
-   DAY TOGGLE BUTTONS
+   FOOD GRID - EXHIBITION LAYOUT
    ======================================== */
 
-.ms-day-pills {
-  display: flex;
-  gap: var(--spacing-md);
-  flex-wrap: wrap;
-  margin-top: var(--spacing-xl);
+.ms-food-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  animation: fadeIn 600ms ease-out 200ms both;
 }
 
-.day-toggle-btn {
-  padding: var(--spacing-sm) var(--spacing-lg);
+.ms-food-item {
+  background: linear-gradient(135deg, #ffffff 0%, #fafbf8 100%);
   border: 1px solid var(--border);
-  background: #ffffff;
-  border-radius: var(--radius-lg);
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: var(--font-weight-medium);
-  color: var(--text-secondary);
-  transition: all 300ms ease-out;
-  letter-spacing: 0.3px;
-  text-transform: uppercase;
-  box-shadow: var(--shadow-xs);
+  border-radius: 24px;
+  overflow: hidden;
+  transition: all 400ms cubic-bezier(0.23, 1, 0.320, 1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.day-toggle-btn:hover {
-  border-color: rgba(110, 139, 116, 0.2);
-  color: var(--text-primary);
+.ms-food-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(110, 139, 116, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 400ms ease-out;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ms-food-item:hover {
+  transform: translateY(-16px) scale(1.02);
+  box-shadow: 0 16px 48px rgba(110, 139, 116, 0.2);
+  border-color: rgba(110, 139, 116, 0.15);
+}
+
+.ms-food-item:hover::before {
+  opacity: 1;
+}
+
+.ms-food-image {
+  width: 100%;
+  height: 200px;
   background: var(--accent-green-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
+  transition: all 400ms cubic-bezier(0.23, 1, 0.320, 1);
+  position: relative;
+}
+
+.ms-food-item:hover .ms-food-image {
+  transform: scale(1.08);
+  filter: drop-shadow(0 8px 16px rgba(110, 139, 116, 0.2));
+}
+
+.ms-food-content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.ms-food-name {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.ms-food-description {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  flex-grow: 1;
+}
+
+.ms-food-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+
+.ms-food-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ms-food-stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ms-food-stat-value {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--accent-green);
+}
+
+/* ========================================
+   FILTER & SEARCH
+   ======================================== */
+
+.ms-filter-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  animation: fadeIn 600ms ease-out 100ms both;
+}
+
+.ms-filter-btn {
+  padding: 10px 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #ffffff;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 300ms cubic-bezier(0.23, 1, 0.320, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.ms-filter-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent-green-light);
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+  z-index: -1;
+}
+
+.ms-filter-btn:hover {
+  border-color: var(--accent-green);
+  color: var(--text-primary);
   transform: translateY(-2px);
 }
 
-.day-toggle-btn.active {
+.ms-filter-btn.active {
   background: var(--accent-green);
   color: #ffffff;
   border-color: var(--accent-green);
-  box-shadow: 
-    0 4px 12px rgba(110, 139, 116, 0.3);
+  box-shadow: 0 4px 12px rgba(110, 139, 116, 0.3);
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+.ms-footer {
+  padding: 48px 24px;
+  border-top: 1px solid var(--border);
+  background: linear-gradient(180deg, transparent 0%, var(--accent-green-light) 100%);
+  text-align: center;
+  margin-top: 80px;
+}
+
+.ms-footer p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 8px 0;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ========================================
@@ -950,155 +1008,78 @@ body::after {
    ======================================== */
 
 @media (max-width: 768px) {
-  :root {
-    --spacing-2xl: 24px;
-    --spacing-3xl: 36px;
-    --spacing-4xl: 48px;
-  }
-
   .ms-page {
-    padding: 0 var(--spacing-lg);
+    padding: 0 16px;
   }
 
   .ms-split {
     grid-template-columns: 1fr;
-    gap: var(--spacing-2xl);
+    gap: 32px;
   }
 
   .ms-nutrition__head {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
+    flex-direction: column;
   }
 
   .ms-totals {
-    justify-content: flex-start;
+    width: 100%;
   }
 
-  .ms-micros {
-    grid-template-columns: repeat(2, 1fr);
+  .ms-totals__item {
+    text-align: left;
   }
 
   .ms-food-grid {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 
-  .ms-nav__links {
-    gap: var(--spacing-lg);
-  }
-
-  .ms-hero__title {
-    font-size: 36px;
-  }
-
-  .ms-section-title {
-    font-size: 24px;
+  .ms-day-pills {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   }
 }
 
 @media (max-width: 480px) {
-  :root {
-    --spacing-lg: 12px;
-    --spacing-xl: 16px;
-    --spacing-2xl: 20px;
-    --spacing-3xl: 28px;
-  }
-
-  .ms-page {
-    padding: 0 var(--spacing-lg);
-  }
-
   .ms-nav {
-    padding: var(--spacing-md) var(--spacing-lg);
+    padding: 12px 16px;
   }
 
   .ms-nav__links {
-    display: none;
+    gap: 16px;
   }
 
-  .ms-hero {
-    padding: var(--spacing-2xl) 0;
+  .ms-section-title {
+    font-size: 20px;
   }
 
   .ms-hero__title {
-    font-size: 28px;
-  }
-
-  .ms-hero__lede {
-    font-size: 14px;
+    font-size: 32px;
   }
 
   .ms-card {
-    padding: var(--spacing-lg);
+    padding: 20px;
   }
 
   .ms-profile-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-md);
-  }
-
-  .profile-fact {
-    padding: var(--spacing-lg);
-  }
-
-  .profile-fact strong {
-    font-size: 16px;
-  }
-
-  .ms-micros {
     grid-template-columns: 1fr;
-    gap: var(--spacing-md);
-    padding: var(--spacing-lg);
   }
 
-  .ms-totals__item strong {
-    font-size: 24px;
-  }
-
-  .ms-food-grid {
-    gap: var(--spacing-md);
-  }
-
-  .day-meal-item {
-    padding: var(--spacing-lg);
-  }
-
-  .meal-name {
-    font-size: 16px;
-  }
-
-  .macro-grid {
-    gap: var(--spacing-sm);
-  }
-
-  .macro {
-    padding: var(--spacing-md);
-  }
-
-  .ms-btn {
-    padding: var(--spacing-sm) var(--spacing-md);
-    font-size: 13px;
+  .ms-hydration__visual {
+    height: 250px;
   }
 
   .hydration-form {
     flex-direction: column;
+  }
+
+  .ms-food-meta {
+    grid-template-columns: 1fr;
   }
 }
 
 /* ========================================
    ACCESSIBILITY
    ======================================== */
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
 
 @media (prefers-reduced-motion: reduce) {
   * {
