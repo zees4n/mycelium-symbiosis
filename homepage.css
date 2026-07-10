@@ -1,6 +1,6 @@
 /* ========================================
-   HOMEPAGE - PREMIUM IMMERSIVE DESIGN
-   Flagship landing page with premium UX
+   HOMEPAGE - IMMERSIVE FLAGSHIP EXPERIENCE
+   Soul. Handcrafted. Living. Unforgettable.
    ======================================== */
 
 :root {
@@ -101,6 +101,17 @@
   width: 100%;
 }
 
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ========================================
    HERO SECTION - IMMERSIVE FLAGSHIP
    ======================================== */
@@ -178,6 +189,12 @@
     radial-gradient(circle at 20% 30%, rgba(74, 155, 111, 0.08) 0%, transparent 40%),
     radial-gradient(circle at 80% 70%, rgba(232, 168, 124, 0.06) 0%, transparent 40%);
   opacity: 0.6;
+  animation: networkPulse 8s ease-in-out infinite;
+}
+
+@keyframes networkPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.9; }
 }
 
 /* Hero container */
@@ -189,6 +206,17 @@
   gap: var(--space-24);
   align-items: center;
   animation: fadeInUp var(--transition-slowest) ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero-content {
@@ -227,7 +255,6 @@
   letter-spacing: -0.02em;
   line-height: 1.1;
   margin: 0;
-  animation: slideInLeft var(--transition-slowest) ease-out;
 }
 
 .hero-title__line {
@@ -257,6 +284,17 @@
   color: var(--color-text-secondary);
   max-width: 600px;
   animation: fadeInUp var(--transition-slowest) ease-out 300ms both;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* Status indicator */
@@ -327,6 +365,17 @@
   animation: fadeInRight var(--transition-slowest) ease-out 400ms both;
 }
 
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .floating-card {
   background: linear-gradient(135deg, rgba(74, 155, 111, 0.15) 0%, rgba(232, 168, 124, 0.08) 100%);
   border: 1px solid rgba(74, 155, 111, 0.2);
@@ -341,11 +390,28 @@
   box-shadow: 
     0 0 40px rgba(74, 155, 111, 0.1),
     inset 0 1px 2px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.floating-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent, rgba(74, 155, 111, 0.05));
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+}
+
+.floating-card:hover::before {
+  opacity: 1;
 }
 
 .floating-card__icon {
   font-size: 4rem;
   filter: drop-shadow(0 0 8px var(--glow-color));
+  animation: organicDrift 6s ease-in-out infinite;
 }
 
 .floating-card__stat {
@@ -390,6 +456,7 @@
   display: block;
   margin-bottom: var(--space-4);
   opacity: 0.9;
+  animation: fadeInUp var(--transition-slowest) ease-out;
 }
 
 .section-title {
@@ -399,7 +466,7 @@
   line-height: 1.2;
   margin: 0 0 var(--space-6) 0;
   color: var(--color-text-primary);
-  animation: slideInUp var(--transition-slowest) ease-out;
+  animation: fadeInUp var(--transition-slowest) ease-out 100ms both;
 }
 
 .section-subtitle {
@@ -407,14 +474,13 @@
   color: var(--color-text-secondary);
   max-width: 600px;
   margin: 0 auto;
-  animation: slideInUp var(--transition-slowest) ease-out 100ms both;
+  animation: fadeInUp var(--transition-slowest) ease-out 200ms both;
 }
 
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--space-12);
-  animation: staggerFadeIn var(--transition-slowest) ease-out;
 }
 
 .feature-card {
@@ -478,6 +544,17 @@
   font-size: var(--font-size-sm);
   line-height: 1.7;
   color: var(--color-text-secondary);
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* ========================================
@@ -677,6 +754,17 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   animation: slideIn 400ms ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ========================================
