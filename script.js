@@ -315,6 +315,7 @@ function initDashboardPage() {
     // Already rendered by initModeSelector
   }
 
+  // Initialize hydration and display it
   initHydration(profile);
 }
 
@@ -343,11 +344,46 @@ function renderDayToggles(profile) {
     }
 
     button.addEventListener("click", () => {
-      showOtherDayModal(day, profile);
+      showOtherDayPanel(day, profile);
     });
 
     container.appendChild(button);
   });
+}
+
+/**
+ * Show other day's meals in expandable panel (no macro details)
+ */
+function showOtherDayPanel(day, profile) {
+  // Get the standard meal plan for this day
+  const mealNames = DAY_MEAL_NAMES[day];
+
+  let html = `<div class="other-day-header"><h3>${day}'s Meal Plan</h3></div>`;
+  html += `<div class="other-day-meals">`;
+  
+  MEAL_TYPES.forEach((mealType, idx) => {
+    html += `
+      <div class="other-day-meal-item">
+        <p class="meal-type">${mealType}</p>
+        <h4 class="meal-name">${escapeHtml(mealNames[idx])}</h4>
+      </div>
+    `;
+  });
+
+  html += `</div>`;
+
+  // Check if panel already exists or create it
+  let panel = document.getElementById("other-day-panel");
+  if (!panel) {
+    panel = document.createElement("div");
+    panel.id = "other-day-panel";
+    panel.className = "other-day-panel";
+    const container = document.getElementById("day-toggle-buttons");
+    container.parentNode.insertBefore(panel, container.nextSibling);
+  }
+
+  panel.innerHTML = html;
+  panel.hidden = false;
 }
 
 /**
@@ -783,6 +819,8 @@ function initHydration(profile) {
   const form = document.getElementById("hydration-form");
   const input = document.getElementById("water-input");
   const reset = document.getElementById("reset-water");
+
+  if (!form) return; // Safety check
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
