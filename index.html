@@ -3,196 +3,340 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TribalStar Mycelium Symbiosis</title>
-  <meta name="description" content="Astronaut profile access for the TribalStar Mycelium Symbiosis lunar-base meal-control system.">
-  <link rel="stylesheet" href="styles.css">
+  <title>TribalStar Mycelium Symbiosis – Lunar Nutrition System</title>
+  <meta name="description" content="Mission-ready astronaut meal and hydration interface for sustained lunar operations. Enter your profile for personalized nutrition planning.">
+  <link rel="stylesheet" href="design-system.css">
+  <link rel="stylesheet" href="homepage.css">
   <script src="script.js" defer></script>
 </head>
-<body data-page="profile">
-  <a class="skip-link" href="#profile-form">Skip to profile form</a>
+<body data-page="homepage">
+  <a class="sr-only" href="#profile-form">Skip to profile form</a>
 
-  <header class="site-header">
-    <a class="brand-mark" href="index.html" aria-label="TribalStar Mycelium Symbiosis home">
-      <span class="brand-symbol" aria-hidden="true"></span>
-      <span>TribalStar</span>
-    </a>
-    <nav class="top-nav" aria-label="Primary navigation">
-      <a href="food.html">Dashboard</a>
-    </nav>
-  </header>
+  <!-- Navigation -->
+  <nav class="site-nav">
+    <div class="site-nav__inner">
+      <a class="site-nav__brand" href="index.html" aria-label="TribalStar Mycelium Symbiosis home">
+        <span class="site-nav__mark" aria-hidden="true"></span>
+        <span>TribalStar</span>
+      </a>
+      <div class="site-nav__links">
+        <a href="food.html">Dashboard</a>
+        <a href="nutrition-calculator.html">Calculator</a>
+      </div>
+    </div>
+  </nav>
 
-  <main class="landing-shell">
-    <section class="hero-grid" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="eyebrow">Lunar base nutrition control</p>
-        <h1 id="hero-title">TribalStar Mycelium Symbiosis</h1>
-        <p class="hero-lede">A mission-ready astronaut meal and hydration interface for sustained lunar operations.</p>
+  <!-- Main Content -->
+  <main class="site-main">
+    <!-- Immersive Hero Section -->
+    <section class="hero-section" aria-labelledby="hero-title">
+      <!-- Animated background layers -->
+      <div class="hero-background">
+        <div class="hero-orb hero-orb--1"></div>
+        <div class="hero-orb hero-orb--2"></div>
+        <div class="hero-orb hero-orb--3"></div>
+        <div class="hero-network"></div>
       </div>
 
-      <aside class="mission-status" aria-label="System status">
-        <span class="status-light" aria-hidden="true"></span>
-        <div>
-          <p class="status-label">Habitat link</p>
-          <p class="status-value">Nutrition systems nominal</p>
-        </div>
-      </aside>
-    </section>
+      <div class="container">
+        <div class="hero-content">
+          <!-- Floating accent -->
+          <div class="hero-accent" aria-hidden="true"></div>
 
-    <section class="panel profile-panel" aria-labelledby="profile-title">
-      <div class="section-heading">
-        <p class="eyebrow">Astronaut access</p>
-        <h2 id="profile-title">Crew profile & nutrition setup</h2>
+          <!-- Main heading with artistic typography -->
+          <div class="hero-heading-wrapper">
+            <h1 id="hero-title" class="hero-title">
+              <span class="hero-title__line">Fuel your</span>
+              <span class="hero-title__line hero-title__highlight">lunar mission</span>
+            </h1>
+          </div>
+
+          <!-- Subtitle with premium lede -->
+          <p class="hero-lede">
+            A mission-ready astronaut meal and hydration interface for sustained lunar operations. Personalized nutrition that adapts to your biology, mission profile, and the week ahead.
+          </p>
+
+          <!-- Floating system status -->
+          <div class="hero-status">
+            <div class="status-indicator">
+              <span class="status-dot" aria-hidden="true"></span>
+              <div class="status-text">
+                <span class="status-label">Habitat link</span>
+                <span class="status-value">Nutrition systems nominal</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA Button -->
+          <div class="hero-cta">
+            <button class="btn btn--primary btn--lg" onclick="document.getElementById('profile-form').scrollIntoView({ behavior: 'smooth' })">
+              Begin Setup
+            </button>
+            <a href="food.html" class="btn btn--secondary btn--lg">
+              View Dashboard
+            </a>
+          </div>
+        </div>
+
+        <!-- Floating visual element -->
+        <div class="hero-visual">
+          <div class="floating-card">
+            <div class="floating-card__icon">🌱</div>
+            <div class="floating-card__content">
+              <div class="floating-card__stat">2,847</div>
+              <div class="floating-card__label">kcal/day</div>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <form id="profile-form" class="profile-form">
-        <!-- Basic Crew Information -->
-        <div class="form-section">
-          <fieldset class="form-section">
-            <legend>Basic Information</legend>
-            <div class="form-grid">
-              <label>
-                <span>Full name</span>
-                <input name="fullName" type="text" autocomplete="name" required>
-              </label>
-
-              <label>
-                <span>Gender</span>
-                <select name="gender" required>
-                  <option value="">Select</option>
-                  <option>Female</option>
-                  <option>Male</option>
-                  <option>Non-binary</option>
-                  <option>Prefer not to say</option>
-                </select>
-              </label>
-
-              <label>
-                <span>Country</span>
-                <input name="country" type="text" autocomplete="country-name" required>
-              </label>
-
-              <label>
-                <span>Age</span>
-                <input name="age" type="number" min="16" max="90" inputmode="numeric" required>
-              </label>
-
-              <label>
-                <span>Weight (kg)</span>
-                <input name="weight" type="number" min="30" max="180" step="0.1" inputmode="decimal" required>
-              </label>
-
-              <label>
-                <span>Height (cm)</span>
-                <input name="height" type="number" min="120" max="230" step="0.1" inputmode="decimal" required>
-              </label>
-
-              <label>
-                <span>Mission role</span>
-                <select name="missionRole" required>
-                  <option value="">Select</option>
-                  <option>Commander</option>
-                  <option>Pilot</option>
-                  <option>Mission specialist</option>
-                  <option>Flight engineer</option>
-                  <option>Medical officer</option>
-                  <option>Botany specialist</option>
-                </select>
-              </label>
-
-              <label>
-                <span>Crew ID</span>
-                <input name="crewId" type="text" autocomplete="off" placeholder="TS-01">
-              </label>
-
-              <label>
-                <span>Lunar habitat</span>
-                <input name="habitat" type="text" autocomplete="off" placeholder="Artemis Ridge">
-              </label>
-
-              <label>
-                <span>Shift cycle</span>
-                <select name="shiftCycle">
-                  <option>Alpha</option>
-                  <option>Beta</option>
-                  <option>Gamma</option>
-                  <option>Delta</option>
-                </select>
-              </label>
-
-              <label>
-                <span>Date (Day of Week)</span>
-                <select name="dateOfWeek" required>
-                  <option value="">Select</option>
-                  <option>Monday</option>
-                  <option>Tuesday</option>
-                  <option>Wednesday</option>
-                  <option>Thursday</option>
-                  <option>Friday</option>
-                  <option>Saturday</option>
-                  <option>Sunday</option>
-                </select>
-              </label>
-            </div>
-          </fieldset>
-        </div>
-
-        <!-- Activity Level & Nutrition Preferences -->
-        <div class="form-section">
-          <fieldset class="form-section">
-            <legend>Activity & Nutrition Profile</legend>
-            <div class="form-grid">
-              <label>
-                <span>Activity level</span>
-                <select name="activityLevel" required>
-                  <option value="">Select</option>
-                  <option value="sedentary">Sedentary (minimal EVA)</option>
-                  <option value="low">Low Activity (routine operations)</option>
-                  <option value="moderate">Moderate (standard missions)</option>
-                  <option value="high">High Activity (EVA missions)</option>
-                  <option value="very-high">Very High (intense EVA)</option>
-                </select>
-              </label>
-
-              <label>
-                <span>Dietary restrictions</span>
-                <select name="dietaryRestrictions">
-                  <option value="">None</option>
-                  <option>Vegetarian</option>
-                  <option>Vegan</option>
-                  <option>Gluten-free</option>
-                  <option>Nut allergies</option>
-                  <option>Other</option>
-                </select>
-              </label>
-
-              <label>
-                <span>Fitness category</span>
-                <select name="fitnessCategory" required>
-                  <option value="">Select</option>
-                  <option value="sedentary">Sedentary</option>
-                  <option value="light">Lightly active</option>
-                  <option value="moderate">Moderately active</option>
-                  <option value="active">Very active</option>
-                  <option value="intense">Extremely active</option>
-                </select>
-              </label>
-
-              <label class="full-width">
-                <span>Special dietary notes</span>
-                <input name="dietaryNotes" type="text" placeholder="e.g., allergies, preferences">
-              </label>
-            </div>
-          </fieldset>
-        </div>
-
-        <div class="form-actions">
-          <button class="button primary" type="submit">Generate nutrition plan & enter dashboard</button>
-          <a class="button secondary" href="food.html" id="skip-link">Skip to dashboard</a>
-        </div>
-      </form>
-
-      <p class="saved-state" id="saved-profile-note" hidden>Profile updated. Your personalized nutrition plan is ready.</p>
     </section>
+
+    <!-- Features Section -->
+    <section class="features-section section" aria-labelledby="features-title">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="features-title" class="section-title">Designed for excellence</h2>
+          <p class="section-subtitle">Every aspect engineered for mission success</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Personalized Analysis</h3>
+            <p>Advanced algorithms calculate your exact nutritional needs based on your profile and mission conditions.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">💧</div>
+            <h3>Hydration Tracking</h3>
+            <p>Real-time monitoring and intelligent reminders keep you optimally hydrated during operations.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🧬</div>
+            <h3>Micronutrient Precision</h3>
+            <p>Track vitamins, minerals, and essential nutrients down to the milligram for peak performance.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📅</div>
+            <h3>Weekly Meal Plans</h3>
+            <p>Pre-calculated nutrition for every day of the week, optimized for mission rhythms and fatigue cycles.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Onboarding Form Section -->
+    <section class="onboarding-section section" aria-labelledby="setup-title">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Astronaut Access</span>
+          <h2 id="setup-title" class="section-title">Crew profile & setup</h2>
+        </div>
+
+        <div class="onboarding-wrapper">
+          <!-- Progress Indicator -->
+          <div class="progress-tracker">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="progress-steps">
+              <div class="progress-step active" data-step="1">
+                <div class="progress-step__number">1</div>
+                <div class="progress-step__label">Identity</div>
+              </div>
+              <div class="progress-step" data-step="2">
+                <div class="progress-step__number">2</div>
+                <div class="progress-step__label">Biometrics</div>
+              </div>
+              <div class="progress-step" data-step="3">
+                <div class="progress-step__number">3</div>
+                <div class="progress-step__label">Preferences</div>
+              </div>
+              <div class="progress-step" data-step="4">
+                <div class="progress-step__number">4</div>
+                <div class="progress-step__label">Mission</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Multi-Step Form -->
+          <form id="profile-form" class="profile-form-multi-step">
+            <!-- Step 1: Identity -->
+            <fieldset class="form-step active" data-step="1">
+              <legend class="form-step__title">Basic Information</legend>
+              <p class="form-step__description">Let's start with who you are</p>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label" for="fullName">Full Name</label>
+                  <input id="fullName" name="fullName" type="text" class="form-input" autocomplete="name" placeholder="Astronaut designation" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="crewId">Crew ID</label>
+                  <input id="crewId" name="crewId" type="text" class="form-input" autocomplete="off" placeholder="TS-01">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="country">Country</label>
+                  <input id="country" name="country" type="text" class="form-input" autocomplete="country-name" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="gender">Gender</label>
+                  <select id="gender" name="gender" class="form-input" required>
+                    <option value="">Select</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Non-binary">Non-binary</option>
+                    <option value="Prefer not to say">Prefer not to say</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Step 2: Biometrics -->
+            <fieldset class="form-step" data-step="2">
+              <legend class="form-step__title">Biometric Profile</legend>
+              <p class="form-step__description">Your physical characteristics drive nutrition calculations</p>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label" for="age">Age</label>
+                  <input id="age" name="age" type="number" class="form-input" min="16" max="90" inputmode="numeric" placeholder="35" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="height">Height (cm)</label>
+                  <input id="height" name="height" type="number" class="form-input" min="120" max="230" step="0.1" inputmode="decimal" placeholder="180" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="weight">Weight (kg)</label>
+                  <input id="weight" name="weight" type="number" class="form-input" min="30" max="180" step="0.1" inputmode="decimal" placeholder="75" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="fitnessCategory">Fitness Level</label>
+                  <select id="fitnessCategory" name="fitnessCategory" class="form-input" required>
+                    <option value="">Select</option>
+                    <option value="sedentary">Sedentary</option>
+                    <option value="light">Lightly active</option>
+                    <option value="moderate">Moderately active</option>
+                    <option value="active">Very active</option>
+                    <option value="intense">Extremely active</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Step 3: Preferences -->
+            <fieldset class="form-step" data-step="3">
+              <legend class="form-step__title">Dietary Preferences</legend>
+              <p class="form-step__description">We'll customize your plan around your preferences</p>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label" for="dietaryRestrictions">Dietary Restrictions</label>
+                  <select id="dietaryRestrictions" name="dietaryRestrictions" class="form-input">
+                    <option value="">None</option>
+                    <option value="Vegetarian">Vegetarian</option>
+                    <option value="Vegan">Vegan</option>
+                    <option value="Gluten-free">Gluten-free</option>
+                    <option value="Nut allergies">Nut allergies</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div class="form-group full-width">
+                  <label class="form-label" for="dietaryNotes">Special Dietary Notes</label>
+                  <input id="dietaryNotes" name="dietaryNotes" type="text" class="form-input" placeholder="e.g., allergies, preferences">
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Step 4: Mission -->
+            <fieldset class="form-step" data-step="4">
+              <legend class="form-step__title">Mission Profile</legend>
+              <p class="form-step__description">Mission parameters determine your nutrition targets</p>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label" for="missionRole">Mission Role</label>
+                  <select id="missionRole" name="missionRole" class="form-input" required>
+                    <option value="">Select</option>
+                    <option value="Commander">Commander</option>
+                    <option value="Pilot">Pilot</option>
+                    <option value="Mission specialist">Mission specialist</option>
+                    <option value="Flight engineer">Flight engineer</option>
+                    <option value="Medical officer">Medical officer</option>
+                    <option value="Botany specialist">Botany specialist</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="activityLevel">Activity Level</label>
+                  <select id="activityLevel" name="activityLevel" class="form-input" required>
+                    <option value="">Select</option>
+                    <option value="sedentary">Sedentary (minimal EVA)</option>
+                    <option value="low">Low Activity (routine operations)</option>
+                    <option value="moderate">Moderate (standard missions)</option>
+                    <option value="high">High Activity (EVA missions)</option>
+                    <option value="very-high">Very High (intense EVA)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="habitat">Lunar Habitat</label>
+                  <input id="habitat" name="habitat" type="text" class="form-input" autocomplete="off" placeholder="Artemis Ridge">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="shiftCycle">Shift Cycle</label>
+                  <select id="shiftCycle" name="shiftCycle" class="form-input">
+                    <option value="Alpha">Alpha</option>
+                    <option value="Beta">Beta</option>
+                    <option value="Gamma">Gamma</option>
+                    <option value="Delta">Delta</option>
+                  </select>
+                </div>
+                <div class="form-group full-width">
+                  <label class="form-label" for="dateOfWeek">Starting Day</label>
+                  <select id="dateOfWeek" name="dateOfWeek" class="form-input" required>
+                    <option value="">Select</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+              <button type="button" class="btn btn--secondary" id="prev-step" style="display: none;">
+                ← Previous
+              </button>
+              <button type="button" class="btn btn--primary" id="next-step">
+                Next →
+              </button>
+              <button type="submit" class="btn btn--primary" id="submit-step" style="display: none;">
+                Generate Plan & Enter
+              </button>
+            </div>
+
+            <p class="form-helper" id="saved-profile-note" hidden>
+              ✓ Profile updated. Your personalized nutrition plan is ready.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-content">
+          <p>&copy; 2024 TribalStar. Mycelium Symbiosis v1.0 | Lunar Operations Division</p>
+          <p>Designed for mission excellence • Engineered for performance</p>
+        </div>
+      </div>
+    </footer>
   </main>
+
+  <script src="homepage-form.js" defer></script>
 </body>
 </html>
