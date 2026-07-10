@@ -1,0 +1,764 @@
+/* ========================================
+   MYCELIUM SYMBIOSIS - DESIGN SYSTEM
+   Revolutionary. Artistic. Unforgettable.
+   ======================================== */
+
+/* ========================================
+   DESIGN TOKENS
+   ======================================== */
+
+:root {
+  /* Color Palette - Biological */
+  --color-void: #0a0d15;
+  --color-night: #0f1419;
+  --color-slate: #1a1f2e;
+  --color-steel: #2a3142;
+  --color-stone: #4a5568;
+  --color-silver: #8890a6;
+  --color-pearl: #d4d9e3;
+  --color-cream: #f5f6f7;
+  
+  /* Accent Colors - Living */
+  --color-mycelium: #4a9b6f;
+  --color-mycelium-light: #6db889;
+  --color-mycelium-bright: #7ec995;
+  --color-spore: #e8a87c;
+  --color-spore-light: #f0b896;
+  --color-substrate: #c4a374;
+  
+  /* Semantic */
+  --color-primary: var(--color-mycelium);
+  --color-secondary: var(--color-spore);
+  --color-text-primary: var(--color-cream);
+  --color-text-secondary: var(--color-silver);
+  --color-text-muted: var(--color-stone);
+  --color-bg: var(--color-void);
+  --color-surface: var(--color-night);
+  --color-surface-alt: var(--color-slate);
+  --color-border: rgba(212, 217, 227, 0.08);
+  --color-border-accent: rgba(74, 155, 111, 0.15);
+  
+  /* Typography Scale */
+  --font-family-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.5rem;
+  --font-size-4xl: 3.5rem;
+  --font-size-5xl: 4.5rem;
+  --font-size-6xl: 6rem;
+  
+  --font-weight-thin: 200;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Spacing Scale - Modular */
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+  --space-40: 10rem;
+  --space-48: 12rem;
+  --space-56: 14rem;
+  --space-64: 16rem;
+  --space-80: 20rem;
+  
+  /* Radius Scale */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-full: 9999px;
+  
+  /* Shadows - Elevation System */
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.35);
+  --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.4);
+  --shadow-2xl: 0 32px 80px rgba(0, 0, 0, 0.45);
+  
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slowest: 800ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Z-Index Scale */
+  --z-base: 0;
+  --z-decoration: 1;
+  --z-content: 10;
+  --z-sticky: 20;
+  --z-overlay: 40;
+  --z-modal: 50;
+}
+
+/* ========================================
+   GLOBAL RESET & BASE
+   ======================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family-body);
+  background: linear-gradient(135deg, var(--color-void) 0%, var(--color-night) 50%, var(--color-void) 100%);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Atmospheric background effect */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-decoration);
+  background:
+    radial-gradient(ellipse 800px 600px at 20% 10%, rgba(74, 155, 111, 0.06) 0%, transparent 40%),
+    radial-gradient(ellipse 600px 400px at 80% 20%, rgba(232, 168, 124, 0.04) 0%, transparent 35%),
+    radial-gradient(ellipse 1000px 500px at 50% 85%, rgba(74, 155, 111, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  animation: atmosphereShift 20s ease-in-out infinite;
+}
+
+@keyframes atmosphereShift {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+/* SVG background pattern - organic network */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-base);
+  background-image: 
+    linear-gradient(90deg, rgba(74, 155, 111, 0.02) 1px, transparent 1px),
+    linear-gradient(rgba(74, 155, 111, 0.02) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ========================================
+   TYPOGRAPHY SYSTEM
+   ======================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: var(--font-size-6xl);
+  font-weight: var(--font-weight-thin);
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-light);
+  letter-spacing: -0.015em;
+}
+
+h3 {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-light);
+}
+
+h4 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-regular);
+}
+
+h5 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-medium);
+}
+
+h6 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+p {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+.text-lg {
+  font-size: var(--font-size-xl);
+  line-height: 1.8;
+}
+
+.text-sm {
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
+.text-xs {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ========================================
+   LAYOUT CONTAINERS
+   ======================================== */
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+}
+
+.container-fluid {
+  width: 100%;
+  padding: 0 var(--space-8);
+}
+
+/* Asymmetric grid system */
+.grid {
+  display: grid;
+  gap: var(--space-12);
+}
+
+.grid--asymmetric {
+  grid-template-columns: 1fr 1.4fr;
+  grid-auto-rows: auto;
+}
+
+.grid--wide {
+  grid-template-columns: 2fr 1fr;
+}
+
+.grid--narrow {
+  grid-template-columns: 1fr 2fr;
+}
+
+@media (max-width: 1024px) {
+  .grid--asymmetric,
+  .grid--wide,
+  .grid--narrow {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Floating elements - break the grid */
+.float-element {
+  position: relative;
+}
+
+.float-element--left {
+  margin-left: -8%;
+}
+
+.float-element--right {
+  margin-right: -8%;
+}
+
+/* ========================================
+   SECTION PATTERNS
+   ======================================== */
+
+section {
+  position: relative;
+  overflow: hidden;
+}
+
+.section {
+  padding: var(--space-48) var(--space-8);
+  position: relative;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-base);
+  pointer-events: none;
+}
+
+.section--hero {
+  min-height: 100vh;
+  padding: var(--space-32) var(--space-8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section--offset {
+  padding-top: var(--space-64);
+  padding-bottom: var(--space-56);
+}
+
+.section--compact {
+  padding: var(--space-24) var(--space-8);
+}
+
+/* Section dividers - organic */
+.section + .section {
+  border-top: 1px solid var(--color-border);
+  position: relative;
+}
+
+.section + .section::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 10%;
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+}
+
+/* ========================================
+   BUTTON SYSTEM
+   ======================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Button variants */
+.btn--primary {
+  background: var(--color-mycelium);
+  color: var(--color-void);
+  box-shadow: 0 4px 16px rgba(74, 155, 111, 0.3);
+}
+
+.btn--primary:hover {
+  background: var(--color-mycelium-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(74, 155, 111, 0.4);
+}
+
+.btn--secondary {
+  background: var(--color-surface-alt);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+}
+
+.btn--secondary:hover {
+  background: var(--color-slate);
+  border-color: var(--color-border-accent);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+}
+
+.btn--ghost:hover {
+  background: rgba(74, 155, 111, 0.08);
+  border-color: var(--color-mycelium);
+}
+
+.btn--accent {
+  background: var(--color-spore);
+  color: var(--color-void);
+}
+
+.btn--accent:hover {
+  background: var(--color-spore-light);
+  transform: translateY(-2px);
+}
+
+/* Size variants */
+.btn--lg {
+  padding: var(--space-6) var(--space-12);
+  font-size: var(--font-size-base);
+  border-radius: var(--radius-lg);
+}
+
+.btn--sm {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-xs);
+  border-radius: var(--radius-sm);
+}
+
+/* Magnetic button effect */
+.btn {
+  --x: 0;
+  --y: 0;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+/* ========================================
+   CARD SYSTEM
+   ======================================== */
+
+.card {
+  background: linear-gradient(135deg, rgba(26, 31, 46, 0.8) 0%, rgba(42, 49, 66, 0.6) 100%);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  backdrop-filter: blur(10px);
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(74, 155, 111, 0.05) 100%);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+}
+
+.card:hover {
+  border-color: var(--color-border-accent);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* Card variants */
+.card--featured {
+  grid-column: span 2;
+  min-height: 400px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
+.card--image-first {
+  grid-template-columns: 1.2fr 1fr;
+}
+
+.card--overlay {
+  position: relative;
+  overflow: hidden;
+  min-height: 300px;
+}
+
+.card--overlay img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ========================================
+   FORM ELEMENTS
+   ======================================== */
+
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background: rgba(26, 31, 46, 0.5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-6);
+  transition: all var(--transition-base);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  background: rgba(26, 31, 46, 0.8);
+  border-color: var(--color-mycelium);
+  box-shadow: 0 0 0 3px rgba(74, 155, 111, 0.1);
+}
+
+label {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+/* ========================================
+   ANIMATION LIBRARY
+   ======================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Animation utility classes */
+.animate-fade-in-up {
+  animation: fadeInUp var(--transition-slowest) ease-out;
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown var(--transition-slowest) ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn var(--transition-slow) ease-out;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Stagger animation for child elements */
+.animate-stagger {
+  animation: fadeInUp var(--transition-slowest) ease-out;
+}
+
+.animate-stagger > * {
+  animation: inherit;
+}
+
+.animate-stagger > *:nth-child(1) { animation-delay: 100ms; }
+.animate-stagger > *:nth-child(2) { animation-delay: 200ms; }
+.animate-stagger > *:nth-child(3) { animation-delay: 300ms; }
+.animate-stagger > *:nth-child(4) { animation-delay: 400ms; }
+.animate-stagger > *:nth-child(5) { animation-delay: 500ms; }
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mt-auto { margin-top: auto; }
+.mb-auto { margin-bottom: auto; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+.opacity-50 { opacity: 0.5; }
+.opacity-75 { opacity: 0.75; }
+
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+
+.gap-2 { gap: var(--space-2); }
+.gap-4 { gap: var(--space-4); }
+.gap-6 { gap: var(--space-6); }
+.gap-8 { gap: var(--space-8); }
+
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+  :root {
+    --font-size-6xl: 4rem;
+    --font-size-5xl: 3rem;
+    --font-size-4xl: 2.25rem;
+    --space-48: 8rem;
+    --space-40: 7rem;
+    --space-32: 6rem;
+  }
+  
+  .section {
+    padding: var(--space-24) var(--space-6);
+  }
+  
+  .container,
+  .container-fluid {
+    padding: 0 var(--space-6);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --font-size-6xl: 2.5rem;
+    --font-size-5xl: 2rem;
+    --font-size-4xl: 1.75rem;
+    --space-48: 6rem;
+    --space-32: 4rem;
+    --space-24: 3rem;
+  }
+  
+  .section {
+    padding: var(--space-16) var(--space-4);
+  }
+  
+  .container,
+  .container-fluid {
+    padding: 0 var(--space-4);
+  }
+  
+  .grid--asymmetric,
+  .grid--wide,
+  .grid--narrow {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
