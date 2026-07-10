@@ -3,121 +3,166 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Meal Dashboard | TribalStar Mycelium Symbiosis</title>
-  <meta name="description" content="Astronaut meal, hydration, and nutrition dashboard for TribalStar Mycelium Symbiosis.">
-  <link rel="stylesheet" href="styles.css">
+  <title>Nutrition · Mycelium Symbiosis</title>
+  <meta name="description" content="Personalized meal, hydration, and micronutrient plan for lunar habitat crew.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="food.css">
+  <script src="micronutrient-data.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body data-page="dashboard">
-  <a class="skip-link" href="#day-plan">Skip to day plan</a>
+  <a class="skip-link" href="#day-plan">Skip to nutrition plan</a>
 
-  <header class="site-header">
-    <a class="brand-mark" href="index.html" aria-label="TribalStar Mycelium Symbiosis home">
-      <span class="brand-symbol" aria-hidden="true"></span>
-      <span>TribalStar</span>
+  <header class="ms-nav" id="site-nav">
+    <a class="ms-nav__brand" href="index.html" aria-label="Mycelium Symbiosis home">
+      <span class="ms-nav__mark" aria-hidden="true"></span>
+      <span class="ms-nav__name">Mycelium Symbiosis</span>
     </a>
-    <nav class="top-nav" aria-label="Primary navigation">
+    <nav class="ms-nav__links" aria-label="Primary navigation">
       <a href="index.html">Profile</a>
+      <a href="nutrition-calculator.html">Calculator</a>
     </nav>
   </header>
 
-  <main class="dashboard-shell">
-    <section class="panel profile-card" aria-labelledby="profile-card-title">
-      <div class="section-heading">
-        <p class="eyebrow">Crew identity</p>
-        <h1 id="profile-card-title">Astronaut profile</h1>
-      </div>
-      <div class="profile-summary" id="profile-summary"></div>
+  <main class="ms-page">
+    <!-- Hero -->
+    <section class="ms-hero chapter" aria-labelledby="hero-title">
+      <p class="ms-label">Lunar habitat · Nutrition</p>
+      <h1 id="hero-title" class="ms-hero__title">Daily nourishment</h1>
+      <p class="ms-hero__lede">A quiet record of what the body needs — calibrated to mission rhythm, activity, and the week ahead.</p>
     </section>
 
-    <section class="panel control-panel" aria-labelledby="mode-title">
-      <div class="section-heading">
-        <p class="eyebrow">Meal mode</p>
-        <h2 id="mode-title">Mission day type</h2>
+    <!-- Profile -->
+    <section class="ms-card chapter" aria-labelledby="profile-title">
+      <div class="ms-section-head">
+        <p class="ms-label">Crew identity</p>
+        <h2 id="profile-title" class="ms-section-title">Astronaut profile</h2>
       </div>
-
-      <fieldset class="mode-selector" id="mode-selector">
-        <legend class="sr-only">Select meal mode</legend>
-        <label><input type="radio" name="mealMode" value="standard"> <span>Standard</span></label>
-        <label><input type="radio" name="mealMode" value="low"> <span>Low Activity</span></label>
-        <label><input type="radio" name="mealMode" value="high"> <span>High Activity</span></label>
-        <label><input type="radio" name="mealMode" value="eva"> <span>EVA</span></label>
-      </fieldset>
+      <div class="ms-profile-grid" id="profile-summary"></div>
     </section>
 
-    <section class="panel hydration-panel" aria-labelledby="hydration-title">
-      <div class="section-heading">
-        <p class="eyebrow">Hydration</p>
-        <h2 id="hydration-title">Water intake</h2>
-      </div>
-
-      <div class="hydration-meter" aria-live="polite">
-        <div class="meter-stats">
-          <span id="hydration-consumed">0 ml consumed</span>
-          <strong id="hydration-remaining">0 ml remaining</strong>
+    <!-- Controls row: mode + hydration -->
+    <div class="ms-split chapter">
+      <section class="ms-card" aria-labelledby="mode-title">
+        <div class="ms-section-head">
+          <p class="ms-label">Mission intensity</p>
+          <h2 id="mode-title" class="ms-section-title">Day type</h2>
         </div>
-        <div class="water-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="water-progress">
-          <span class="water-fill" id="water-fill"></span>
+        <fieldset class="ms-segment" id="mode-selector">
+          <legend class="sr-only">Select meal mode</legend>
+          <label class="ms-segment__item">
+            <input type="radio" name="mealMode" value="standard">
+            <span>Standard</span>
+          </label>
+          <label class="ms-segment__item">
+            <input type="radio" name="mealMode" value="low">
+            <span>Low</span>
+          </label>
+          <label class="ms-segment__item">
+            <input type="radio" name="mealMode" value="high">
+            <span>High</span>
+          </label>
+          <label class="ms-segment__item">
+            <input type="radio" name="mealMode" value="eva">
+            <span>EVA</span>
+          </label>
+        </fieldset>
+      </section>
+
+      <section class="ms-card" aria-labelledby="hydration-title">
+        <div class="ms-section-head">
+          <p class="ms-label">Hydration</p>
+          <h2 id="hydration-title" class="ms-section-title">Water intake</h2>
         </div>
-        <p class="microcopy" id="hydration-target">Daily requirement: 0 ml</p>
-      </div>
 
-      <form class="hydration-form" id="hydration-form">
-        <label>
-          <span>Consumed water (ml)</span>
-          <input id="water-input" type="number" min="1" inputmode="numeric" required>
-        </label>
-        <button class="button primary" type="submit">Add water</button>
-        <button class="button secondary" type="button" id="reset-water">Reset</button>
-      </form>
-    </section>
-
-    <!-- Day selector for viewing different meal plans -->
-    <section class="panel day-selector-panel" aria-labelledby="day-selector-title">
-      <div class="section-heading">
-        <p class="eyebrow">Weekly schedule</p>
-        <h2 id="day-selector-title">View other days</h2>
-      </div>
-
-      <div class="day-toggle-buttons" id="day-toggle-buttons"></div>
-    </section>
-
-    <!-- Personalized Daily Plan Section -->
-    <section class="schedule-section dayplan-section" id="day-plan" aria-labelledby="dayplan-title">
-      <div class="dayplan-header">
-        <div>
-          <p class="eyebrow">Daily nutrition</p>
-          <h2 id="dayplan-title">Today's plan</h2>
-          <p id="day-date" class="microcopy"></p>
-        </div>
-        <div class="day-summary" aria-hidden="false">
-          <div class="day-total">
-            <div class="day-total-item"><span class="microcopy">Calories</span><strong id="totals-calories">—</strong></div>
-            <div class="day-total-item"><span class="microcopy">Protein</span><strong id="totals-protein">—</strong></div>
-            <div class="day-total-item"><span class="microcopy">Carbs</span><strong id="totals-carbs">—</strong></div>
+        <div class="ms-hydration" aria-live="polite">
+          <div class="ms-hydration__ring" aria-hidden="true">
+            <svg viewBox="0 0 120 120" role="presentation">
+              <circle class="ms-ring__track" cx="60" cy="60" r="52" />
+              <circle class="ms-ring__fill" id="water-ring" cx="60" cy="60" r="52" />
+            </svg>
+            <span class="ms-ring__value" id="hydration-percent">0</span>
           </div>
-          <div class="key-micros" id="key-micros"></div>
+
+          <div class="ms-hydration__stats">
+            <p class="ms-hydration__consumed" id="hydration-consumed">0 ml consumed</p>
+            <p class="ms-hydration__remaining" id="hydration-remaining">0 ml remaining</p>
+            <p class="ms-hydration__target" id="hydration-target">Daily requirement · 2500 ml</p>
+
+            <div class="ms-progress ms-progress--thin" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="water-progress">
+              <span class="ms-progress__fill" id="water-fill"></span>
+            </div>
+          </div>
+        </div>
+
+        <form class="ms-hydration-form" id="hydration-form">
+          <label class="ms-field">
+            <span class="ms-field__label">Amount (ml)</span>
+            <input id="water-input" type="number" min="1" inputmode="numeric" placeholder="250" required>
+          </label>
+          <div class="ms-hydration-form__actions">
+            <button class="ms-btn ms-btn--primary" type="submit">Add water</button>
+            <button class="ms-btn ms-btn--secondary" type="button" id="reset-water">Reset</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <!-- Week selector -->
+    <section class="ms-card chapter" aria-labelledby="day-selector-title">
+      <div class="ms-section-head">
+        <p class="ms-label">Weekly rhythm</p>
+        <h2 id="day-selector-title" class="ms-section-title">View other days</h2>
+      </div>
+      <div class="ms-day-pills" id="day-toggle-buttons"></div>
+    </section>
+
+    <!-- Daily plan -->
+    <section class="chapter ms-nutrition" id="day-plan" aria-labelledby="dayplan-title">
+      <div class="ms-nutrition__head">
+        <div>
+          <p class="ms-label">Daily nutrition</p>
+          <h2 id="dayplan-title" class="ms-section-title">Today's plan</h2>
+          <p id="day-date" class="ms-meta"></p>
+        </div>
+
+        <div class="ms-totals">
+          <div class="ms-totals__item">
+            <span class="ms-label">Calories</span>
+            <strong id="totals-calories">—</strong>
+          </div>
+          <div class="ms-totals__item">
+            <span class="ms-label">Protein</span>
+            <strong id="totals-protein">—</strong>
+          </div>
+          <div class="ms-totals__item">
+            <span class="ms-label">Carbs</span>
+            <strong id="totals-carbs">—</strong>
+          </div>
         </div>
       </div>
 
-      <div id="day-meals" class="day-meals"></div>
+      <div class="ms-micros" id="key-micros"></div>
+      <div id="day-meals" class="ms-food-grid"></div>
     </section>
 
-    <!-- Weekly meal grid (shown when no personalized plan) -->
-    <section class="schedule-section" id="weekly-schedule" aria-labelledby="weekly-title">
-      <div class="schedule-heading">
-        <h2 id="active-plan-title" class="active-plan-title">Standard Meal Plan</h2>
+    <!-- Weekly fallback grid -->
+    <section class="chapter ms-weekly" id="weekly-schedule" hidden aria-labelledby="weekly-title">
+      <div class="ms-section-head">
+        <p class="ms-label">Full schedule</p>
+        <h2 id="active-plan-title" class="ms-section-title">Standard meal plan</h2>
       </div>
-      <div id="weekly-grid" class="weekly-grid"></div>
+      <div id="weekly-grid" class="ms-weekly-grid"></div>
     </section>
-
-    <!-- Modal/drawer for viewing other day details -->
-    <div id="day-detail-modal" class="day-detail-modal" hidden>
-      <div class="modal-content">
-        <button class="modal-close" id="modal-close">&times;</button>
-        <div id="modal-day-content"></div>
-      </div>
-    </div>
   </main>
+
+  <div id="day-detail-modal" class="ms-modal" hidden>
+    <div class="ms-modal__panel">
+      <button class="ms-modal__close" id="modal-close" type="button" aria-label="Close">&times;</button>
+      <div id="modal-day-content"></div>
+    </div>
+  </div>
 </body>
 </html>

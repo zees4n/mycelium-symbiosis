@@ -297,6 +297,9 @@ function initDashboardPage() {
 
   renderProfile(profile);
 
+  // Initialize hydration first so it works even if rendering throws
+  initHydration(profile);
+
   // Try to load and render personalized daily plan first
   const dailyPlan = getDailyPlan();
   if (dailyPlan) {
@@ -304,6 +307,9 @@ function initDashboardPage() {
   } else {
     // Fall back to mode selector if no daily plan exists
     initModeSelector(profile);
+    const fallbackDay = profile.dateOfWeek || "Monday";
+    showOtherDayMeals(fallbackDay, profile);
+    setActiveDayToggle(fallbackDay);
   }
 
   // Render day toggles for viewing other days
@@ -314,9 +320,6 @@ function initDashboardPage() {
   if (!usedGenerated && !dailyPlan) {
     // Already rendered by initModeSelector
   }
-
-  // Initialize hydration with profile data
-  initHydration(profile);
 }
 
 /**
@@ -327,7 +330,7 @@ function renderDayToggles(profile) {
   if (!container) return;
 
   const dailyPlan = getDailyPlan();
-  const selectedDay = dailyPlan?.profile?.dateOfWeek || "Monday";
+  const selectedDay = dailyPlan?.profile?.dateOfWeek || profile.dateOfWeek || "Monday";
 
   container.innerHTML = "";
 
@@ -344,7 +347,12 @@ function renderDayToggles(profile) {
     }
 
     button.addEventListener("click", () => {
-      showOtherDayMeals(day);
+      setActiveDayToggle(day);
+      if (day === selectedDay && dailyPlan) {
+        renderPersonalizedDailyPlan(dailyPlan, profile);
+      } else {
+        showOtherDayMeals(day, profile);
+      }
     });
 
     container.appendChild(button);
@@ -352,34 +360,120 @@ function renderDayToggles(profile) {
 }
 
 /**
- * Show other day's meals in the day plan section (just meal names, no macros)
+ * Highlight the active day toggle button
  */
-function showOtherDayMeals(day) {
+function setActiveDayToggle(day) {
+  document.querySelectorAll(".day-toggle-btn").forEach((btn) => {
+    const isActive = btn.getAttribute("data-day") === day;
+    btn.classList.toggle("active", isActive);
+    if (isActive) {
+      btn.setAttribute("aria-current", "true");
+    } else {
+      btn.removeAttribute("aria-current");
+    }
+  });
+}
+
+/**
+ * Compute profile scale factor from personalized daily plan
+ */
+function getProfileScaleFactor(dailyPlan) {
+  if (!dailyPlan?.macroTargets) return 1;
+  const standardTotal = [2914, 126, 384, 83];
+  const t = dailyPlan.macroTargets;
+  const factors = [
+    t.calories / standardTotal[0],
+    t.protein / standardTotal[1],
+    t.carbs / standardTotal[2],
+    t.fat / standardTotal[3]
+  ];
+  return factors.reduce((sum, n) => sum + n, 0) / factors.length;
+}
+
+/**
+ * Build meal objects for a given day, scaled to profile when available
+ */
+function buildDayMeals(day, profile) {
+  const dailyPlan = getDailyPlan();
+  const scale = getProfileScaleFactor(dailyPlan);
+  const storedMode = localStorage.getItem(STORAGE_KEYS.mode);
+  const modeKey = MEAL_PLAN_VALUES[storedMode] ? storedMode : "standard";
+  const modePlan = MEAL_PLAN_VALUES[modeKey];
+  const rawMacros = modePlan?.values?.[day] || DAY_MEAL_MACROS[day] || DAY_MEAL_MACROS.Monday;
+  const mealNames = DAY_MEAL_NAMES[day] || DAY_MEAL_NAMES.Monday;
+  const scaledMacros = scaleMeals(rawMacros, scale);
+
+  return MEAL_TYPES.map((type, idx) => ({
+    type,
+    data: generateMealFromMacros(scaledMacros[idx], mealNames[idx])
+  }));
+}
+
+/**
+ * Render a full day meal plan (macros + micronutrients)
+ */
+function renderDayMealPlan(day, profile, meals, totals, options = {}) {
   const dayMealsContainer = document.getElementById("day-meals");
+  const keyMicrosContainer = document.getElementById("key-micros");
   const dayTitleElement = document.getElementById("dayplan-title");
   const dayDateElement = document.getElementById("day-date");
-  
+
   if (!dayMealsContainer) return;
 
-  // Clear existing meals
   dayMealsContainer.innerHTML = "";
+  if (keyMicrosContainer) keyMicrosContainer.innerHTML = "";
 
-  // Update title and date
-  if (dayTitleElement) dayTitleElement.textContent = `${day}'s Meals`;
-  if (dayDateElement) dayDateElement.textContent = day;
+  if (dayTitleElement && options.title) dayTitleElement.textContent = options.title;
+  if (dayDateElement) dayDateElement.textContent = options.dateLabel || day;
 
-  // Get meal names for this day
-  const mealNames = DAY_MEAL_NAMES[day];
+  document.getElementById("totals-calories").textContent = `${totals.calories} kcal`;
+  document.getElementById("totals-protein").textContent = `${totals.protein}g`;
+  document.getElementById("totals-carbs").textContent = `${totals.carbs}g`;
 
-  // Render each meal without macros
-  MEAL_TYPES.forEach((mealType, idx) => {
+  meals.forEach(({ type, data }) => {
     const mealItem = document.createElement("div");
     mealItem.className = "day-meal-item";
+    const microBadges = renderMicronutrientBadges(data.name);
     mealItem.innerHTML = `
-      <p class="meal-type">${mealType}</p>
-      <h4 class="meal-name">${escapeHtml(mealNames[idx])}</h4>
+      <p class="meal-type">${type}</p>
+      <h4 class="meal-name">${escapeHtml(data.name)}</h4>
+      <div class="macro-grid">
+        <div class="macro"><span>Calories</span><strong>${data.calories} kcal</strong></div>
+        <div class="macro"><span>Protein</span><strong>${data.protein}g</strong></div>
+        <div class="macro"><span>Carbs</span><strong>${data.carbs}g</strong></div>
+        <div class="macro"><span>Fat</span><strong>${data.fat}g</strong></div>
+      </div>
+      ${microBadges}
     `;
     dayMealsContainer.appendChild(mealItem);
+  });
+
+  renderKeyMicronutrients(meals, profile, keyMicrosContainer);
+}
+
+/**
+ * Sum macro totals from meal list
+ */
+function sumMealTotals(meals) {
+  return meals.reduce(
+    (acc, { data }) => ({
+      calories: acc.calories + data.calories,
+      protein: acc.protein + data.protein,
+      carbs: acc.carbs + data.carbs,
+      fat: acc.fat + data.fat
+    }),
+    { calories: 0, protein: 0, carbs: 0, fat: 0 }
+  );
+}
+
+/**
+ * Show another day's full meal plan in the day plan section
+ */
+function showOtherDayMeals(day, profile) {
+  const meals = buildDayMeals(day, profile);
+  const totals = sumMealTotals(meals);
+  renderDayMealPlan(day, profile, meals, totals, {
+    title: `${day}'s plan`
   });
 }
 
@@ -406,20 +500,9 @@ function initModeSelector(profile) {
  * Render personalized daily nutrition plan with calculated macros for selected day only
  */
 function renderPersonalizedDailyPlan(dailyPlan, profile) {
-  const dayMealsContainer = document.getElementById("day-meals");
-  const dayTotalsContainer = document.querySelector(".day-total");
-  const keyMicrosContainer = document.getElementById("key-micros");
+  const selectedDay = dailyPlan.profile.dateOfWeek;
   const dayDateElement = document.getElementById("day-date");
 
-  if (!dayMealsContainer || !dayTotalsContainer) return;
-
-  dayMealsContainer.innerHTML = "";
-  keyMicrosContainer.innerHTML = "";
-
-  const totals = dailyPlan.macroTargets;
-  const selectedDay = dailyPlan.profile.dateOfWeek;
-
-  // Update date display
   if (dayDateElement) {
     dayDateElement.textContent = `Selected: ${selectedDay}`;
   }
@@ -432,34 +515,11 @@ function renderPersonalizedDailyPlan(dailyPlan, profile) {
     { type: "Dinner", data: dailyPlan.meals.dinner }
   ];
 
-  // Update day totals with calculated values
-  document.getElementById("totals-calories").textContent = totals.calories + " kcal";
-  document.getElementById("totals-protein").textContent = totals.protein + "g";
-  document.getElementById("totals-carbs").textContent = totals.carbs + "g";
-
-  // Render each meal item with calculated macros
-  meals.forEach(({ type, data }) => {
-    const mealItem = document.createElement("div");
-    mealItem.className = "day-meal-item";
-    
-    const microBadges = renderMicronutrientBadges(data.name);
-    
-    mealItem.innerHTML = `
-      <p class="meal-type">${type}</p>
-      <h4 class="meal-name">${escapeHtml(data.name)}</h4>
-      <div class="macro-grid">
-        <div class="macro"><span>Calories</span><strong>${data.calories} kcal</strong></div>
-        <div class="macro"><span>Protein</span><strong>${data.protein}g</strong></div>
-        <div class="macro"><span>Carbs</span><strong>${data.carbs}g</strong></div>
-        <div class="macro"><span>Fat</span><strong>${data.fat}g</strong></div>
-      </div>
-      ${microBadges}
-    `;
-    dayMealsContainer.appendChild(mealItem);
+  const totals = dailyPlan.macroTargets;
+  renderDayMealPlan(selectedDay, profile, meals, totals, {
+    title: "Today's plan",
+    dateLabel: `Selected: ${selectedDay}`
   });
-
-  // Render key micronutrients at top
-  renderKeyMicronutrients(meals, profile, keyMicrosContainer);
 }
 
 /**
@@ -477,7 +537,7 @@ function renderMicronutrientBadges(mealName) {
   ];
 
   const badges = topMicros
-    .filter(m => microData[m.key])
+    .filter(m => microData[m.key] != null && microData[m.key] > 0)
     .map(m => `
       <div class="micro-badge">
         <span class="micro-badge-icon">${m.icon}</span>
@@ -543,7 +603,11 @@ function renderKeyMicronutrients(meals, profile, container) {
   });
 
   // Get targets based on activity level
-  const targets = ACTIVITY_ADJUSTED_TARGETS[profile.activityLevel] || ACTIVITY_ADJUSTED_TARGETS.moderate;
+  const defaultTargets = { calcium: 1100, iron: 18, vitaminC: 90 };
+  const targets =
+    typeof ACTIVITY_ADJUSTED_TARGETS !== "undefined"
+      ? ACTIVITY_ADJUSTED_TARGETS[profile.activityLevel] || ACTIVITY_ADJUSTED_TARGETS.moderate
+      : defaultTargets;
 
   // Key micros to display
   const keyMicros = [
@@ -767,7 +831,7 @@ function initHydration(profile) {
   // Display the water target immediately on page load
   updateHydrationDisplay(profile);
 
-  if (!form) return; // Safety check
+  if (!form || !input || !reset) return;
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -817,9 +881,9 @@ function updateHydrationDisplay(profile) {
 }
 
 function getWaterTarget(profile) {
-  const weight = Number(profile.weight) || 75;
-  const target = Math.max(2500, weight * 35);
-  return Math.round(target / 50) * 50;
+  const weight = profile && Number(profile.weight);
+  if (!weight) return 2500;
+  return Math.max(2500, Math.round((weight * 35) / 50) * 50);
 }
 
 function getHydrationKey(profile) {

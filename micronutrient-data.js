@@ -114,6 +114,18 @@ const MICRONUTRIENT_DATA = {
     magnesium: 78,
     potassium: 320
   },
+  "Soy Yogurt with Tomatoes": {
+    calcium: 320,
+    iron: 1.6,
+    zinc: 0.8,
+    vitaminA: 180,
+    vitaminC: 18,
+    vitaminD: 0.8,
+    vitaminB12: 1.4,
+    folate: 42,
+    magnesium: 72,
+    potassium: 340
+  },
   "Nuts & Dried Fruit": {
     calcium: 120,
     iron: 2.1,
@@ -125,6 +137,18 @@ const MICRONUTRIENT_DATA = {
     folate: 32,
     magnesium: 125,
     potassium: 510
+  },
+  "Mixed Nuts": {
+    calcium: 110,
+    iron: 2.0,
+    zinc: 2.6,
+    vitaminA: 28,
+    vitaminC: 4,
+    vitaminD: 0,
+    vitaminB12: 0,
+    folate: 28,
+    magnesium: 118,
+    potassium: 480
   },
   "Pumpkin Seeds & Strawberries": {
     calcium: 145,
