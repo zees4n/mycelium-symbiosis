@@ -1,6 +1,6 @@
 /* ========================================
    MYCELIUM SYMBIOSIS - PREMIUM DESIGN
-   Quiet. Scientific. Organic. Elegant.
+   Alive. Scientific. Organic. Elegant.
    ======================================== */
 
 :root {
@@ -12,7 +12,10 @@
   --border: rgba(0, 0, 0, 0.06);
   --shadow-sm: rgba(0, 0, 0, 0.04);
   --shadow-md: rgba(0, 0, 0, 0.08);
+  --shadow-lg: rgba(0, 0, 0, 0.12);
   --accent-green: #6e8b74;
+  --accent-green-light: rgba(110, 139, 116, 0.04);
+  --accent-green-hover: rgba(110, 139, 116, 0.08);
   
   /* Typography */
   --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif;
@@ -39,7 +42,9 @@
   /* Shadows */
   --shadow-xs: 0 2px 4px var(--shadow-sm);
   --shadow-sm-card: 0 4px 12px var(--shadow-sm);
-  --shadow-md-card: 0 8px 20px var(--shadow-md);
+  --shadow-md-card: 0 8px 24px var(--shadow-md);
+  --shadow-lg-card: 0 16px 40px var(--shadow-lg);
+  --shadow-inset: inset 0 1px 2px rgba(255, 255, 255, 0.5);
 }
 
 /* ========================================
@@ -66,6 +71,35 @@ body {
   font-weight: var(--font-weight-light);
   line-height: 1.6;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Organic background layers */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 15% 8%, rgba(110, 139, 116, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 85% 12%, rgba(110, 139, 116, 0.02) 0%, transparent 35%),
+    radial-gradient(circle at 50% 95%, rgba(110, 139, 116, 0.025) 0%, transparent 45%),
+    linear-gradient(135deg, #ffffff 0%, #fafbf8 100%);
+  pointer-events: none;
+}
+
+/* Subtle noise texture */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.008) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.008) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), transparent 85%);
+  pointer-events: none;
 }
 
 /* ========================================
@@ -76,10 +110,23 @@ body {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(255, 255, 255, 0.98);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
   padding: var(--spacing-lg) var(--spacing-xl);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  animation: slideDown 500ms ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .ms-nav-inner {
@@ -99,6 +146,11 @@ body {
   font-size: 14px;
   font-weight: var(--font-weight-medium);
   letter-spacing: 0.5px;
+  transition: all 300ms ease-out;
+}
+
+.ms-nav__brand:hover {
+  opacity: 0.8;
 }
 
 .ms-nav__mark {
@@ -107,6 +159,12 @@ body {
   border: 1.5px solid var(--text-primary);
   border-radius: 50%;
   opacity: 0.8;
+  transition: all 300ms ease-out;
+}
+
+.ms-nav__brand:hover .ms-nav__mark {
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 .ms-nav__links {
@@ -120,11 +178,27 @@ body {
   text-decoration: none;
   font-size: 14px;
   font-weight: var(--font-weight-light);
-  transition: color 300ms ease-out;
+  transition: all 300ms ease-out;
+  position: relative;
+}
+
+.ms-nav__links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent-green);
+  transition: width 300ms ease-out;
 }
 
 .ms-nav__links a:hover {
   color: var(--text-primary);
+}
+
+.ms-nav__links a:hover::after {
+  width: 100%;
 }
 
 /* ========================================
@@ -139,19 +213,25 @@ body {
 
 .chapter {
   margin-bottom: var(--spacing-4xl);
-  animation: fadeUp 600ms ease-out;
+  animation: fadeUpStagger 600ms ease-out;
 }
 
-@keyframes fadeUp {
+@keyframes fadeUpStagger {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
+.chapter:nth-child(1) { animation-delay: 100ms; }
+.chapter:nth-child(2) { animation-delay: 200ms; }
+.chapter:nth-child(3) { animation-delay: 300ms; }
+.chapter:nth-child(4) { animation-delay: 400ms; }
+.chapter:nth-child(n+5) { animation-delay: 500ms; }
 
 /* ========================================
    HERO SECTION
@@ -169,6 +249,18 @@ body {
   line-height: 1.1;
   margin-bottom: var(--spacing-lg);
   color: var(--text-primary);
+  animation: titleReveal 700ms ease-out;
+}
+
+@keyframes titleReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .ms-hero__lede {
@@ -178,6 +270,12 @@ body {
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.7;
+  animation: fadeIn 700ms ease-out 200ms both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* ========================================
@@ -186,16 +284,20 @@ body {
 
 .ms-section-head {
   margin-bottom: var(--spacing-2xl);
+  padding-bottom: var(--spacing-xl);
+  border-bottom: 1px solid var(--border);
+  animation: fadeIn 600ms ease-out;
 }
 
 .ms-label {
   font-size: 12px;
   font-weight: var(--font-weight-medium);
   letter-spacing: 0.8px;
-  color: var(--text-muted);
+  color: var(--accent-green);
   text-transform: uppercase;
   margin-bottom: var(--spacing-md);
   display: block;
+  opacity: 0.9;
 }
 
 .ms-section-title {
@@ -204,6 +306,7 @@ body {
   letter-spacing: -0.01em;
   line-height: 1.2;
   color: var(--text-primary);
+  margin-bottom: var(--spacing-lg);
 }
 
 .ms-meta {
@@ -214,22 +317,42 @@ body {
 }
 
 /* ========================================
-   CARDS
+   CARDS - ENHANCED
    ======================================== */
 
 .ms-card {
-  background: var(--bg);
+  background: linear-gradient(135deg, #ffffff 0%, #fafbf8 100%);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   padding: var(--spacing-2xl);
-  box-shadow: var(--shadow-sm-card);
-  transition: all 300ms ease-out;
+  box-shadow: 
+    var(--shadow-sm-card),
+    var(--shadow-inset);
+  transition: all 350ms cubic-bezier(0.23, 1, 0.320, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.ms-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 30%, rgba(110, 139, 116, 0.08) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 350ms ease-out;
+  pointer-events: none;
 }
 
 .ms-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md-card);
-  border-color: rgba(0, 0, 0, 0.08);
+  transform: translateY(-8px);
+  box-shadow: 
+    var(--shadow-md-card),
+    var(--shadow-inset);
+  border-color: rgba(110, 139, 116, 0.12);
+}
+
+.ms-card:hover::before {
+  opacity: 1;
 }
 
 /* ========================================
@@ -247,14 +370,32 @@ body {
   padding: var(--spacing-xl);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  background: var(--bg);
-  transition: all 300ms ease-out;
+  background: linear-gradient(135deg, #ffffff 0%, #fafbf8 100%);
+  transition: all 350ms cubic-bezier(0.23, 1, 0.320, 1);
   text-align: center;
+  box-shadow: var(--shadow-xs);
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-fact::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 100% 50%, rgba(110, 139, 116, 0.1) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+  pointer-events: none;
 }
 
 .profile-fact:hover {
-  border-color: rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
+  border-color: rgba(110, 139, 116, 0.15);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md-card);
+}
+
+.profile-fact:hover::after {
+  opacity: 1;
 }
 
 .profile-fact span {
@@ -299,6 +440,7 @@ body {
   align-items: flex-end;
   justify-content: center;
   perspective: 1000px;
+  animation: fadeIn 700ms ease-out 300ms both;
 }
 
 .hydration-pot {
@@ -313,6 +455,9 @@ body {
   );
   overflow: hidden;
   transition: --water-level 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    inset 0 2px 8px rgba(110, 139, 116, 0.2),
+    0 8px 24px rgba(110, 139, 116, 0.15);
 }
 
 .hydration-pot::before {
@@ -325,6 +470,7 @@ body {
   background: var(--bg);
   border-radius: 50%;
   border: 2px solid var(--text-primary);
+  box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.06);
 }
 
 .hydration-pot::after {
@@ -342,6 +488,7 @@ body {
 
 .hydration-stats {
   text-align: center;
+  animation: fadeIn 700ms ease-out 400ms both;
 }
 
 .hydration-stat-row {
@@ -352,6 +499,15 @@ body {
 
 .hydration-stat {
   text-align: center;
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  background: var(--accent-green-light);
+  transition: all 300ms ease-out;
+}
+
+.hydration-stat:hover {
+  background: var(--accent-green-hover);
+  transform: translateY(-2px);
 }
 
 .hydration-stat-label {
@@ -373,6 +529,7 @@ body {
   display: flex;
   gap: var(--spacing-md);
   margin-top: var(--spacing-lg);
+  animation: fadeIn 700ms ease-out 500ms both;
 }
 
 .hydration-input {
@@ -397,10 +554,11 @@ body {
   border: 1px solid var(--border);
   border-radius: 50px;
   font-size: 16px;
-  background: var(--bg);
+  background: linear-gradient(135deg, #ffffff 0%, #fafbf8 100%);
   color: var(--text-primary);
   transition: all 300ms ease-out;
   font-weight: var(--font-weight-light);
+  box-shadow: var(--shadow-xs);
 }
 
 .ms-field input::placeholder {
@@ -409,8 +567,11 @@ body {
 
 .ms-field input:focus {
   outline: none;
-  border-color: var(--text-primary);
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
+  border-color: var(--accent-green);
+  box-shadow: 
+    0 0 0 3px rgba(110, 139, 116, 0.1),
+    var(--shadow-sm-card);
+  transform: translateY(-2px);
 }
 
 .ms-btn {
@@ -427,27 +588,30 @@ body {
   gap: var(--spacing-sm);
   white-space: nowrap;
   letter-spacing: 0.3px;
+  box-shadow: var(--shadow-xs);
 }
 
 .ms-btn--primary {
-  background: var(--text-primary);
-  color: var(--bg);
+  background: var(--accent-green);
+  color: #ffffff;
 }
 
 .ms-btn--primary:hover {
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(110, 139, 116, 0.9);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-sm-card);
 }
 
 .ms-btn--secondary {
-  background: var(--bg);
+  background: #ffffff;
   color: var(--text-primary);
   border: 1px solid var(--border);
 }
 
 .ms-btn--secondary:hover {
-  border-color: rgba(0, 0, 0, 0.2);
-  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(110, 139, 116, 0.2);
+  background: var(--accent-green-light);
+  transform: translateY(-2px);
 }
 
 /* ========================================
@@ -455,11 +619,13 @@ body {
    ======================================== */
 
 .profile-card {
-  background: var(--bg);
+  background: linear-gradient(135deg, #ffffff 0%, #fafbf8 100%);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   padding: var(--spacing-2xl);
-  box-shadow: var(--shadow-sm-card);
+  box-shadow: 
+    var(--shadow-sm-card),
+    var(--shadow-inset);
 }
 
 /* ========================================
@@ -489,6 +655,15 @@ body {
 
 .ms-totals__item {
   text-align: right;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  background: var(--accent-green-light);
+  transition: all 300ms ease-out;
+}
+
+.ms-totals__item:hover {
+  background: var(--accent-green-hover);
+  transform: translateY(-2px);
 }
 
 .ms-totals__item span {
@@ -518,19 +693,24 @@ body {
   gap: var(--spacing-lg);
   margin: var(--spacing-3xl) 0;
   padding: var(--spacing-2xl);
-  background: rgba(0, 0, 0, 0.01);
+  background: linear-gradient(135deg, var(--accent-green-light) 0%, transparent 100%);
   border-radius: var(--radius-xl);
   border: 1px solid var(--border);
+  animation: fadeIn 700ms ease-out 400ms both;
 }
 
 .key-micro-item {
   text-align: center;
   padding: var(--spacing-lg);
   transition: all 300ms ease-out;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .key-micro-item:hover {
   transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: var(--shadow-sm-card);
 }
 
 .key-micro-icon {
@@ -539,6 +719,10 @@ body {
   display: block;
   filter: grayscale(0%) opacity(1);
   transition: all 300ms ease-out;
+}
+
+.key-micro-item:hover .key-micro-icon {
+  transform: scale(1.1) rotate(5deg);
 }
 
 .key-micro-value {
@@ -557,7 +741,7 @@ body {
 }
 
 /* ========================================
-   MEAL GRID
+   MEAL GRID - RICH CARDS
    ======================================== */
 
 .ms-food-grid {
@@ -571,10 +755,26 @@ body {
   padding: var(--spacing-xl);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  background: var(--bg);
-  transition: all 300ms ease-out;
-  animation: fadeUp 600ms ease-out;
+  background: linear-gradient(135deg, #ffffff 0%, #fafbf8 100%);
+  transition: all 350ms cubic-bezier(0.23, 1, 0.320, 1);
+  animation: mealReveal 600ms ease-out;
   animation-fill-mode: both;
+  box-shadow: 
+    var(--shadow-xs),
+    var(--shadow-inset);
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes mealReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .day-meal-item:nth-child(1) { animation-delay: 100ms; }
@@ -583,10 +783,26 @@ body {
 .day-meal-item:nth-child(4) { animation-delay: 250ms; }
 .day-meal-item:nth-child(5) { animation-delay: 300ms; }
 
+.day-meal-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 30%, rgba(110, 139, 116, 0.12) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 350ms ease-out;
+  pointer-events: none;
+}
+
 .day-meal-item:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md-card);
-  border-color: rgba(0, 0, 0, 0.08);
+  transform: translateY(-8px);
+  box-shadow: 
+    var(--shadow-md-card),
+    var(--shadow-inset);
+  border-color: rgba(110, 139, 116, 0.12);
+}
+
+.day-meal-item:hover::before {
+  opacity: 1;
 }
 
 .meal-type {
@@ -596,6 +812,7 @@ body {
   letter-spacing: 0.5px;
   text-transform: uppercase;
   margin-bottom: var(--spacing-sm);
+  opacity: 0.9;
 }
 
 .meal-name {
@@ -610,20 +827,22 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
 }
 
 .macro {
   padding: var(--spacing-lg);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  background: rgba(0, 0, 0, 0.01);
+  background: linear-gradient(135deg, rgba(110, 139, 116, 0.04) 0%, transparent 100%);
   text-align: center;
   transition: all 300ms ease-out;
 }
 
 .macro:hover {
-  background: rgba(110, 139, 116, 0.05);
+  background: linear-gradient(135deg, rgba(110, 139, 116, 0.08) 0%, transparent 100%);
   border-color: rgba(110, 139, 116, 0.2);
+  transform: translateY(-2px);
 }
 
 .macro span {
@@ -666,8 +885,9 @@ body {
 }
 
 .micro-badge:hover {
-  background: rgba(110, 139, 116, 0.08);
+  background: rgba(110, 139, 116, 0.1);
   border-color: rgba(110, 139, 116, 0.3);
+  transform: translateY(-2px);
 }
 
 .micro-badge-icon {
@@ -698,7 +918,7 @@ body {
 .day-toggle-btn {
   padding: var(--spacing-sm) var(--spacing-lg);
   border: 1px solid var(--border);
-  background: var(--bg);
+  background: #ffffff;
   border-radius: var(--radius-lg);
   cursor: pointer;
   font-size: 13px;
@@ -707,17 +927,22 @@ body {
   transition: all 300ms ease-out;
   letter-spacing: 0.3px;
   text-transform: uppercase;
+  box-shadow: var(--shadow-xs);
 }
 
 .day-toggle-btn:hover {
-  border-color: rgba(0, 0, 0, 0.12);
+  border-color: rgba(110, 139, 116, 0.2);
   color: var(--text-primary);
+  background: var(--accent-green-light);
+  transform: translateY(-2px);
 }
 
 .day-toggle-btn.active {
-  background: var(--text-primary);
-  color: var(--bg);
-  border-color: var(--text-primary);
+  background: var(--accent-green);
+  color: #ffffff;
+  border-color: var(--accent-green);
+  box-shadow: 
+    0 4px 12px rgba(110, 139, 116, 0.3);
 }
 
 /* ========================================
