@@ -511,11 +511,12 @@ function renderMicronutrientBadges(mealName) {
 }
 
 /**
- * Get micronutrient data (stub - would import from micronutrient-data.js)
+ * Get micronutrient data from micronutrient-data.js
  */
 function getMicronutrientData(mealName) {
-  // This would normally import from micronutrient-data.js
-  // For now, return empty object
+  if (typeof MICRONUTRIENT_DATA !== 'undefined') {
+    return MICRONUTRIENT_DATA[mealName] || {};
+  }
   return {};
 }
 
@@ -544,19 +545,46 @@ function getUnitForMicronutrient(key) {
 function renderKeyMicronutrients(meals, profile, container) {
   if (!container) return;
 
+  // Calculate total micronutrients from all meals
+  const totals = {};
+  const keyMicroKeys = ["calcium", "iron", "vitaminC", "magnesium", "potassium", "vitaminD", "zinc"];
+  
+  // Initialize totals
+  keyMicroKeys.forEach(key => {
+    totals[key] = 0;
+  });
+
+  // Sum micronutrients from all meals
+  meals.forEach(({ data }) => {
+    const microData = getMicronutrientData(data.name);
+    keyMicroKeys.forEach(key => {
+      totals[key] += microData[key] || 0;
+    });
+  });
+
+  // Get targets based on activity level
+  const targets = ACTIVITY_ADJUSTED_TARGETS[profile.activityLevel] || ACTIVITY_ADJUSTED_TARGETS.moderate;
+
+  // Key micros to display
   const keyMicros = [
     { key: "calcium", icon: "🥛", label: "Calcium" },
     { key: "iron", icon: "🩸", label: "Iron" },
     { key: "vitaminC", icon: "🍊", label: "Vitamin C" }
   ];
 
-  const html = keyMicros.map(m => `
-    <div class="key-micro-item">
-      <div class="key-micro-icon">${m.icon}</div>
-      <div class="key-micro-value">—</div>
-      <div class="key-micro-label">${m.label}</div>
-    </div>
-  `).join("");
+  const html = keyMicros.map(m => {
+    const value = Math.round(totals[m.key] || 0);
+    const target = targets[m.key] || 0;
+    const percentage = target > 0 ? Math.round((value / target) * 100) : 0;
+    const displayValue = value > 0 ? `${value}` : "—";
+    return `
+      <div class="key-micro-item">
+        <div class="key-micro-icon">${m.icon}</div>
+        <div class="key-micro-value">${displayValue}</div>
+        <div class="key-micro-label">${m.label} (${percentage}%)</div>
+      </div>
+    `;
+  }).join("");
 
   container.innerHTML = html;
 }
