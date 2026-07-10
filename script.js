@@ -315,12 +315,12 @@ function initDashboardPage() {
     // Already rendered by initModeSelector
   }
 
-  // Initialize hydration and display it
+  // Initialize hydration with profile data
   initHydration(profile);
 }
 
 /**
- * Render day toggle buttons to view other days' meals (without macros)
+ * Render day toggle buttons to view other days' meals
  */
 function renderDayToggles(profile) {
   const container = document.getElementById("day-toggle-buttons");
@@ -344,7 +344,7 @@ function renderDayToggles(profile) {
     }
 
     button.addEventListener("click", () => {
-      showOtherDayPanel(day, profile);
+      showOtherDayMeals(day);
     });
 
     container.appendChild(button);
@@ -352,90 +352,34 @@ function renderDayToggles(profile) {
 }
 
 /**
- * Show other day's meals in expandable panel (no macro details)
+ * Show other day's meals in the day plan section (just meal names, no macros)
  */
-function showOtherDayPanel(day, profile) {
-  // Get the standard meal plan for this day
+function showOtherDayMeals(day) {
+  const dayMealsContainer = document.getElementById("day-meals");
+  const dayTitleElement = document.getElementById("dayplan-title");
+  const dayDateElement = document.getElementById("day-date");
+  
+  if (!dayMealsContainer) return;
+
+  // Clear existing meals
+  dayMealsContainer.innerHTML = "";
+
+  // Update title and date
+  if (dayTitleElement) dayTitleElement.textContent = `${day}'s Meals`;
+  if (dayDateElement) dayDateElement.textContent = day;
+
+  // Get meal names for this day
   const mealNames = DAY_MEAL_NAMES[day];
 
-  let html = `<div class="other-day-header"><h3>${day}'s Meal Plan</h3></div>`;
-  html += `<div class="other-day-meals">`;
-  
+  // Render each meal without macros
   MEAL_TYPES.forEach((mealType, idx) => {
-    html += `
-      <div class="other-day-meal-item">
-        <p class="meal-type">${mealType}</p>
-        <h4 class="meal-name">${escapeHtml(mealNames[idx])}</h4>
-      </div>
+    const mealItem = document.createElement("div");
+    mealItem.className = "day-meal-item";
+    mealItem.innerHTML = `
+      <p class="meal-type">${mealType}</p>
+      <h4 class="meal-name">${escapeHtml(mealNames[idx])}</h4>
     `;
-  });
-
-  html += `</div>`;
-
-  // Check if panel already exists or create it
-  let panel = document.getElementById("other-day-panel");
-  if (!panel) {
-    panel = document.createElement("div");
-    panel.id = "other-day-panel";
-    panel.className = "other-day-panel";
-    const container = document.getElementById("day-toggle-buttons");
-    container.parentNode.insertBefore(panel, container.nextSibling);
-  }
-
-  panel.innerHTML = html;
-  panel.hidden = false;
-}
-
-/**
- * Show modal with other day's meals (no macro calculations)
- */
-function showOtherDayModal(day, profile) {
-  const modal = document.getElementById("day-detail-modal");
-  const content = document.getElementById("modal-day-content");
-  const closeBtn = document.getElementById("modal-close");
-
-  if (!modal || !content) return;
-
-  // Get the standard meal plan for this day (no adjustments)
-  const standardPlan = MEAL_PLAN_VALUES.standard;
-  const mealNames = DAY_MEAL_NAMES[day];
-  const mealMacros = standardPlan.values[day];
-  const dayTotals = standardPlan.totals[day];
-
-  let html = `<h3>${day}'s Meal Plan (Standard)</h3>`;
-  html += `<div class="modal-day-totals">
-    <span>${dayTotals[0]} kcal</span>
-    <span>${dayTotals[1]}g protein</span>
-    <span>${dayTotals[2]}g carbs</span>
-    <span>${dayTotals[3]}g fat</span>
-  </div>`;
-
-  html += `<div class="modal-meals">`;
-  
-  MEAL_TYPES.forEach((mealType, idx) => {
-    const [cal, pro, carb, fat] = mealMacros[idx];
-    html += `
-      <div class="modal-meal-item">
-        <p class="meal-type">${mealType}</p>
-        <h4 class="meal-name">${escapeHtml(mealNames[idx])}</h4>
-        <p class="meal-macros">${cal} kcal | ${pro}g P | ${carb}g C | ${fat}g F</p>
-      </div>
-    `;
-  });
-
-  html += `</div>`;
-
-  content.innerHTML = html;
-  modal.hidden = false;
-
-  closeBtn.addEventListener("click", () => {
-    modal.hidden = true;
-  });
-
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      modal.hidden = true;
-    }
+    dayMealsContainer.appendChild(mealItem);
   });
 }
 
@@ -820,6 +764,9 @@ function initHydration(profile) {
   const input = document.getElementById("water-input");
   const reset = document.getElementById("reset-water");
 
+  // Display the water target immediately on page load
+  updateHydrationDisplay(profile);
+
   if (!form) return; // Safety check
 
   form.addEventListener("submit", (event) => {
@@ -844,8 +791,6 @@ function initHydration(profile) {
     saveJson(STORAGE_KEYS.hydration, hydration);
     updateHydrationDisplay(profile);
   });
-
-  updateHydrationDisplay(profile);
 }
 
 function updateHydrationDisplay(profile) {
@@ -855,14 +800,20 @@ function updateHydrationDisplay(profile) {
   const remaining = Math.max(target - consumed, 0);
   const percent = Math.min(Math.round((consumed / target) * 100), 100);
 
-  document.getElementById("hydration-consumed").textContent = `${consumed} ml consumed`;
-  document.getElementById("hydration-remaining").textContent = `${remaining} ml remaining`;
-  document.getElementById("hydration-target").textContent = `Daily requirement: ${target} ml`;
-  document.getElementById("water-fill").style.width = `${percent}%`;
+  const consumedEl = document.getElementById("hydration-consumed");
+  const remainingEl = document.getElementById("hydration-remaining");
+  const targetEl = document.getElementById("hydration-target");
+  const fillEl = document.getElementById("water-fill");
+  const progressEl = document.getElementById("water-progress");
 
-  const progress = document.getElementById("water-progress");
-  progress.setAttribute("aria-valuenow", `${percent}`);
-  progress.setAttribute("aria-valuetext", `${remaining} ml remaining`);
+  if (consumedEl) consumedEl.textContent = `${consumed} ml consumed`;
+  if (remainingEl) remainingEl.textContent = `${remaining} ml remaining`;
+  if (targetEl) targetEl.textContent = `Daily requirement: ${target} ml`;
+  if (fillEl) fillEl.style.width = `${percent}%`;
+  if (progressEl) {
+    progressEl.setAttribute("aria-valuenow", `${percent}`);
+    progressEl.setAttribute("aria-valuetext", `${remaining} ml remaining`);
+  }
 }
 
 function getWaterTarget(profile) {
